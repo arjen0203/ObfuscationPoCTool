@@ -1,0 +1,23 @@
+code_path: path/to/your/code_file.py
+
+techniques:
+  - replacing_static_values: {
+        targetingType: linesOfCode,
+        targets: "test"
+    }
+
+  - abstracting_static_values: {
+      targetingType: all
+    }
+
+  - replacing_identifiers: {
+      targetingType: identifier,
+      targets: 34 - 12,
+      replacementValue: "{*} -> {bai}"
+    }
+
+  - replacing_library_calls: {
+      targetingType: identifier,
+      targets: ["test", 23, 12-23],
+      replacementValue: "{ai} -> {bai}"
+    }

@@ -26,17 +26,17 @@ syntax TechniqueType =
 ;
 
 syntax TechniqueFields =
-    | "{" TargetingType targetingType "}"
-    | "{" TargetingType targetingType "," Targets targets "}"
-    | "{" TargetingType targetingType "," Targets targets "," ReplacementValue replacementValue "}"
+    | targetingOnlyAll: "{" TargetingTypeDecleration targetingType "}"
+    | targetingTargets: "{" TargetingTypeDecleration targetingType "," Targets targets "}"
+    | targetingTargetsAndReplacment:"{" TargetingTypeDecleration targetingType "," Targets targets "," ReplacementValue replacementValue "}"
 ;
 
-syntax TargetingType =
-    "targetingType" ":" String value
+syntax TargetingTypeDecleration =
+    "targetingType" ":" String typeValue
 ;
 
 syntax Targets = 
-    "targets" ":" TargetValue value
+    "targets" ":" TargetValue targetValue
 ;
 
 syntax TargetValue =
@@ -57,7 +57,7 @@ syntax Target =
 
 syntax Range = Int low "-" Int high;
 
-syntax ReplacementValue = "replacementValue" ":" ReplacementValueInput value;
+syntax ReplacementValue = "replacementValue" ":" ReplacementValueInput replacementValue;
 
 // TODO: allow escaped charachters or define differently
 syntax ReplacementValueInput = "\"{" CodeString toReplace "}" "-\>" "{" CodeString replacement "}\"";

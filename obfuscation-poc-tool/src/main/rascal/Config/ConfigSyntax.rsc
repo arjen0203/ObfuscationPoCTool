@@ -1,78 +1,34 @@
 module Config::ConfigSyntax
 
 start syntax ConcreteConfigFile =
-    CodePath
-    Techniques
+    CodePath codePath
+    Techniques techniques
 ;
 
-syntax CodePath = "code_path" ":"  Path codePath ;
+syntax CodePath = "code_path" ":"  Path path ;
 
-syntax Techniques = "techniques" ":" TechniqueList*;
+syntax Techniques = "techniques" ":" TechniqueItem* techniqueList;
 
-syntax TechniqueList = "-" Technique;
+syntax TechniqueItem = "-" TechniqueType technique;
 
-syntax Technique =
-    | replacingStaticValues: ReplacingStaticValues
-    | abstractingStaticValues: AbstractingStaticValues
-    | abstractingTypesToGeneric: AbstractingTypesToGeneric
-    | replacingIdentifiers: ReplacingIdentifiers
-    | abstractingIdentifiers: AbstractingIdentifiers
-    | replacingLibraryCalls: ReplacingLibraryCalls
-    | abstractingLibraryCalls: AbstractingLibraryCalls
-    | removingLibraryCalls: RemovingLibraryCalls
-    | removingComments: RemovingComments
-    | replacingLinesOfCode: ReplacingLinesOfCode
-    | removingLinesOfCode: RemovingLinesOfCode
-;
-
-syntax ReplacingStaticValues =
-    "replacing_static_values" ":" TechniqueFields
-;
-
-syntax AbstractingStaticValues =
-    "abstracting_static_values" ":" TechniqueFields
-;
-
-syntax AbstractingTypesToGeneric =
-    "abstracting_types_to_generic" ":" TechniqueFields
-;
-
-syntax ReplacingIdentifiers =
-    "replacing_identifiers" ":" TechniqueFields
-;
-
-syntax AbstractingIdentifiers =
-    "abstracting_identifiers" ":" TechniqueFields
-;
-
-syntax ReplacingLibraryCalls =
-    "replacing_library_calls" ":" TechniqueFields
-;
-
-syntax AbstractingLibraryCalls =
-    "abstracting_library_calls" ":" TechniqueFields
-;
-
-syntax RemovingLibraryCalls =
-    "removing_library_calls" ":" TechniqueFields
-;
-
-syntax RemovingComments =
-    "removing_comments" ":" TechniqueFields
-;
-
-syntax ReplacingLinesOfCode =
-    "replacing_lines_of_code" ":" TechniqueFields
-;
-
-syntax RemovingLinesOfCode =
-    "removing_lines_of_code" ":" TechniqueFields
+syntax TechniqueType =
+    | replacingStaticValues: "replacing_static_values" ":" TechniqueFields
+    | abstractingStaticValues: "abstracting_static_values" ":" TechniqueFields
+    | abstractingTypesToGeneric: "abstracting_types_to_generic" ":" TechniqueFields
+    | replacingIdentifiers: "replacing_identifiers" ":" TechniqueFields
+    | abstractingIdentifiers: "abstracting_identifiers" ":" TechniqueFields
+    | replacingLibraryCalls: "replacing_library_calls" ":" TechniqueFields
+    | abstractingLibraryCalls:  "abstracting_library_calls" ":" TechniqueFields
+    | removingLibraryCalls: "removing_library_calls" ":" TechniqueFields
+    | removingComments: "removing_comments" ":" TechniqueFields
+    | replacingLinesOfCode: "replacing_lines_of_code" ":" TechniqueFields
+    | removingLinesOfCode: "removing_lines_of_code" ":" TechniqueFields
 ;
 
 syntax TechniqueFields =
-    | "{" TargetingType "}"
-    | "{" TargetingType "," Targets "}"
-    | "{" TargetingType "," Targets "," ReplacementValue "}"
+    | "{" TargetingType targetingType "}"
+    | "{" TargetingType targetingType "," Targets targets "}"
+    | "{" TargetingType targetingType "," Targets targets "," ReplacementValue replacementValue "}"
 ;
 
 syntax TargetingType =

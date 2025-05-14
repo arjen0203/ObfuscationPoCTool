@@ -1,45 +1,62 @@
-code_path: path/to/your/code_file.py
+code_path: path/to/your/code_file.c
 
 techniques:
-  - replacing_static_values:
-      targetingType: linesOfCode
-      targets: [12, "23-43"]
-      replacementValue: "A"
+  - replacing_static_values: {
+      targetingType: linesOfCode,
+      targets: [12, "23-43"],
+      replacementValue: "{*} -> {test}"
+    }
 
-  - abstracting_static_values:
+  - replacing_static_values: {
+        targetingType: linesOfCode,
+        targets: [12, "23-43"],
+        replacementValue: "{*} -> {test}"
+    }
+
+  - abstracting_static_values: {
       targetingType: all
+    }
 
-  - abstracting_types_to_generic:
+  - abstracting_types_to_generic: {
       targetingType: all
+    }
 
-  - replacing_identifiers:
-      targetingType: identifier
-      targets: "init_func"
-      replacementValue: "func"
+  - replacing_identifiers: {
+      targetingType: identifier,
+      targets: "init_func",
+      replacementValue: "{testFunction} -> {function}"
+    }
 
-  - abstracting_identifiers:
+  - abstracting_identifiers: {
       targetingType: all
+    }
 
-  - replacing_library_calls:
-      targetingType: identifier
-      targets: "parse_json"
-      replacementValue: "json_library"
+  - replacing_library_calls: {
+      targetingType: identifier,
+      targets: "parse_json",
+      replacementValue: "{testLibrary} -> {library}"
+    }
 
-  - abstracting_library_calls:
-      targetingType: identifier
+  - abstracting_library_calls: {
+      targetingType: identifier,
       targets: ["parse_json", "http_request"]
+    }
 
-  - removing_library_calls:
+  - removing_library_calls: {
       targetingType: all
+    }
 
-  - removing_comments:
+  - removing_comments: {
       targetingType: all
+    }
 
-  - replacing_lines_of_code:
-      targetingType: linesOfCode
-      targets: [50, "52-55"]
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: [50, "52-55"],
       replacementValue: "{test * value} -> {4 + 2}"
+    }
 
-  - removing_lines_of_code:
-      targetingType: linesOfCode
+  - removing_lines_of_code: {
+      targetingType: linesOfCode,
       targets: ["50", "52-55"]
+    }

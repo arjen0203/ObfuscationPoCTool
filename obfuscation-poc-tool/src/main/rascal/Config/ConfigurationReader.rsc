@@ -2,6 +2,8 @@ module Config::ConfigurationReader
 
 import IO;
 import ParseTree;
+import List;
+import String;
 import Config::ConfigSyntax;
 import Config::Configuration;
  
@@ -133,10 +135,10 @@ private TargetingType ConvertFieldsTypeAndTargets(TargetingTypeDecleration targe
             throw "for targetingType \"call\" no additional properties are nequired";
         }
         case "identifier" : {
-            return targetIdentifiers([]);
+            return targetIdentifiers(ConvertTargetIdentifierList(targets));
         }
         case "linesOfCode" : {
-            return targetLinesOfCode([]);
+            return targetLinesOfCode(ConvertTargetCodeLineList(targets));
         }
         default:
             throw "<targetingTypeDecleration.typeValue> is not an existing targeting type";
@@ -149,12 +151,98 @@ private TargetingType ConvertFieldsTypeTargetsAndReplacement(TargetingTypeDecler
             throw "for targetingType \"call\" no additional properties are nequired";
         }
         case "identifier" : {
-            return targetIdentifiersWithReplacement([], replaceAll(""));
+            return targetIdentifiersWithReplacement(ConvertTargetIdentifierList(targets), ConvertReplacementFunction(replacementValue));
         }
         case "linesOfCode" : {
-            return targetLinesOfCodeWithReplacement([], replaceAll(""));
+            return targetLinesOfCodeWithReplacement(ConvertTargetCodeLineList(targets), ConvertReplacementFunction(replacementValue));
         }
         default:
             throw "<targetingTypeDecleration.typeValue> is not an existing targeting type";
     }
+}
+
+private list[str] ConvertTargetIdentifierList(Targets targets) {
+    switch (targets.targetValue) {
+        case (TargetValue) `<Target target>`: {
+            return [ ConvertIdentifierTarget(target) ];
+        }
+        case (TargetValue) `[ <TargetList targetList> ]`: {
+            return FlattenIdentifierTargetList(targetList, []);
+        }
+        default:
+            throw "TargetValue pattern not matched!";
+    }
+}
+
+list[str] FlattenIdentifierTargetList(TargetList targetList, list[str] currentList) {
+  switch (targetList) {
+    case (TargetList) `<Target target>`: {
+        return concat([[ConvertIdentifierTarget(target)], currentList]);
+    }
+    case (TargetList) `<Target head>, <TargetList tail>`: {
+        return concat([[ConvertIdentifierTarget(head)], FlattenIdentifierTargetList(tail, currentList), currentList]);
+    }
+    default:
+      throw "Unrecognized TargetList structure: <targetList>";
+  };
+}
+
+private str ConvertIdentifierTarget(Target target) {
+  switch (target) {
+    case (Target) `" <Identifier identifier> "`:
+      return "<identifier>";
+    case (Target) `<Int codeLine>`:
+      throw "Numeric target not allowed";
+    case (Target) `<Range range>`:
+      throw "Range target not allowed";
+    default:
+      throw "Target not matched";
+  };
+}
+
+private list[linesOfCodeTarget] ConvertTargetCodeLineList(Targets targets) {
+    switch (targets.targetValue) {
+        case (TargetValue) `<Target target>`: {
+            return [ ConvertCodeLineTarget(target) ];
+        }
+        case (TargetValue) `[ <TargetList targetList> ]`: {
+            return FlattenCodeLineTargetList(targetList, []);
+        }
+        default:
+            throw "TargetValue pattern not matched!";
+    }
+}
+
+list[linesOfCodeTarget] FlattenCodeLineTargetList(TargetList targetList, list[linesOfCodeTarget] currentList) {
+  switch (targetList) {
+    case (TargetList) `<Target target>`: {
+        return concat([[ConvertCodeLineTarget(target)], currentList]);
+    }
+    case (TargetList) `<Target head>, <TargetList tail>`: {
+        return concat([[ConvertCodeLineTarget(head)], FlattenCodeLineTargetList(tail, currentList), currentList]);
+    }
+    default:
+      throw "Unrecognized TargetList structure: <targetList>";
+  };
+}
+
+private linesOfCodeTarget ConvertCodeLineTarget(Target target) {
+  switch (target) {
+    case (Target) `<Int codeLine>`:
+      return singleLine(toInt("<codeLine>"));
+    case (Target) `" <Int low> - <Int high> "`: {
+      return range(toInt("<low>"), toInt("<high>"));
+    }
+    case (Target) `" <Identifier identifier> "`:
+      return singleLine(toInt("<identifier>"));
+    default:
+      throw "Target not matched";
+  };
+}
+
+private ReplacementFunction ConvertReplacementFunction(ReplacementValue replacementValue) {
+    str toReplace = "<replacementValue.replacementValueInput.toReplace>";
+    str replacement = "<replacementValue.replacementValueInput.replacement>";
+    if (toReplace == "*") return replaceAll(replacement);
+    return replaceWith(toReplace, replacement);
 }

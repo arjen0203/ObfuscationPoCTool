@@ -3,13 +3,13 @@ code_path: path/to/your/code_file.c
 techniques:
   - replacing_static_values: {
       targetingType: linesOfCode,
-      targets: [12, "23-43"],
+      targets: [12, "23 - 43"],
       replacementValue: "{*} -> {test}"
     }
 
   - replacing_static_values: {
         targetingType: linesOfCode,
-        targets: [12, "23-43"],
+        targets: [12, "23 - 43"],
         replacementValue: "{*} -> {test}"
     }
 
@@ -52,11 +52,11 @@ techniques:
 
   - replacing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: [50, "52-55"],
+      targets: 50,
       replacementValue: "{test * value} -> {4 + 2}"
     }
 
   - removing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: ["50", "52-55"]
+      targets: ["50", "52 - 55"]
     }

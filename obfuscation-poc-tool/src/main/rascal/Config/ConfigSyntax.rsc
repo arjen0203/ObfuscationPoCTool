@@ -49,15 +49,14 @@ syntax TargetList =
     | Target "," TargetList
 ;
 
+// todo have distinction between range and identifeier, without space
 syntax Target =
     | Int codeLine
-    | "\"" Identifier identifier "\""
-    | Range range
-;
+    | "\"" Int low "-" Int high "\""
+    > "\"" Identifier identifier "\"";
 
-syntax Range = Int low "-" Int high;
 
-syntax ReplacementValue = "replacementValue" ":" ReplacementValueInput replacementValue;
+syntax ReplacementValue = "replacementValue" ":" ReplacementValueInput replacementValueInput;
 
 // TODO: allow escaped charachters or define differently
 syntax ReplacementValueInput = "\"{" CodeString toReplace "}" "-\>" "{" CodeString replacement "}\"";

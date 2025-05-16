@@ -1,4 +1,5 @@
-code_path: path/to/your/code_file.c
+code_path: C:\Users\Arjen\OneDrive\Documenten\Repositories\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\concat.c
+output_path: C:/Users/Arjen/OneDrive/Documenten/Repositories/ObfuscationPoCTool/obfuscation-poc-tool/TestFiles/TestOutput/concatOutput.c
 
 techniques:
   - replacing_static_values: {

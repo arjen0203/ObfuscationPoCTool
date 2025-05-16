@@ -1,4 +1,5 @@
 code_path: path/to/your/code_file.c
+output_path: path/to/your/output_file.c
 
 techniques:
   - replacing_static_values: {

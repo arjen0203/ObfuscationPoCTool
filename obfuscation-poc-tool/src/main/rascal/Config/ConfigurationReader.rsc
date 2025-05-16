@@ -7,11 +7,12 @@ import String;
 import Config::ConfigSyntax;
 import Config::Configuration;
  
-public void parseConfigFile(loc filePath) {
+public Configuration parseConfigFile(loc filePath) {
     ConcreteConfigFile concreteConfig = parseConfigFileToTree(filePath);
     println("concreteConfig: <concreteConfig>");
     Configuration config = ConvertConcreteConfigFileToConfiguration(concreteConfig);
     println("config: <config>");
+    return config;
 }
 
 private ConcreteConfigFile parseConfigFileToTree(loc filePath) {
@@ -19,9 +20,10 @@ private ConcreteConfigFile parseConfigFileToTree(loc filePath) {
 }
 
 private Configuration ConvertConcreteConfigFileToConfiguration(ConcreteConfigFile concreteConfig) {
-    loc path = |file:///| + "<concreteConfig.codePath.path>";
+    loc codePath = |file:///| + "<concreteConfig.codePath.path>";
+    loc outputPath = |file:///| + "<concreteConfig.outputPath.path>";
     list[TechniqueItem] techs = [technique | technique <- concreteConfig.techniques.techniqueList];
-    return configuration(path, ConvertTechniques(techs));
+    return configuration(codePath, outputPath, ConvertTechniques(techs));
 }
 
 private list[Technique] ConvertTechniques(list[TechniqueItem] techniqueList) {

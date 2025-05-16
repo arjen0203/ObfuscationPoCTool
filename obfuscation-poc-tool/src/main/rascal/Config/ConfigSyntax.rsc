@@ -2,10 +2,13 @@ module Config::ConfigSyntax
 
 start syntax ConcreteConfigFile =
     CodePath codePath
+    OutputPath outputPath
     Techniques techniques
 ;
 
-syntax CodePath = "code_path" ":"  Path path ;
+syntax CodePath = "code_path" ":"  Path path;
+
+syntax OutputPath = "output_path" ":" Path path;
 
 syntax Techniques = "techniques" ":" TechniqueItem* techniqueList;
 
@@ -49,7 +52,7 @@ syntax TargetList =
     | Target "," TargetList
 ;
 
-// todo have distinction between range and identifeier, without space
+// TODO: have distinction between range and identifeier, without space
 syntax Target =
     | Int codeLine
     | "\"" Int low "-" Int high "\""

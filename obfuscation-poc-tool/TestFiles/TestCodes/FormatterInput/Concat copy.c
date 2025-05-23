@@ -2,11 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
-
-
 #define TEXT "ABC"
 
 // Simulate the ConcatenationLibrary.RepeatAndJoin functionality

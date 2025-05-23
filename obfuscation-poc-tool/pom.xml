@@ -60,6 +60,22 @@
             <src>${project.basedir}/src/main/rascal</src>
           </srcs>
         </configuration>
+        <executions>
+          <execution>
+            <id>rascal-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>rascal-package</id>
+            <phase>pre-package</phase>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

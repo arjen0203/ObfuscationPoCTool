@@ -4,6 +4,7 @@ import IO;
 import Config::Configuration;
 import Obfuscation::CodeProcessor;
 import lang::cpp::AST;
+import Obfuscation::ObfuscationTools;
 
 public void ObfuscateCode(Configuration configuration) {
     str codeString = readFileToString(configuration.codePath);

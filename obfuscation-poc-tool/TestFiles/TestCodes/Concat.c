@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TEXT "ABC"
+static const char TEXT[] = "ABC";
 
 // Simulate the ConcatenationLibrary.RepeatAndJoin functionality
 char* RepeatAndJoin(int count, const char* text) {

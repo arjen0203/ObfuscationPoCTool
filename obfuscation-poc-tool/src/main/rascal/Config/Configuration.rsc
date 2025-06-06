@@ -1,6 +1,6 @@
 module Config::Configuration
 
-data Configuration = configuration(loc codePath, loc outputPath, list[Technique] technqiueListList);
+data Configuration = configuration(loc codePath, loc outputPath, list[Technique] techniqueList);
 
 data Technique
 	= replacingStaticValues(TargetingType targetingType)

@@ -71,9 +71,28 @@ Declaration handleReplacingStaticValues(TargetingType targetingType, Declaration
 }
 
 Declaration handleAbstractingStaticValues(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
   println("Handling abstractingStaticValues");
-  return ast;
+  Declaration augmentedAST = ast;
+  switch (targetingType) {
+    case targetAll(): {
+        augmentedAST = visit(ast) {
+            case decl: simpleDeclaration(declSpecifier(_, integer()), [declarator(_, _, _)]) => AbstractValueInteger(decl)
+        }
+    }
+
+    case targetIdentifiers(list[str] identifierList): {
+        println("Targeting identifiers:");
+        for (id <- identifierList) {
+        println(" - Identifier: <id>");
+        }
+    }
+  }
+  return augmentedAST;
+}
+
+private Declaration AbstractValueInteger(Declaration decl){
+    println(decl);
+    return reference();
 }
 
 Declaration handleAbstractingTypesToGeneric(TargetingType targetingType, Declaration ast) {

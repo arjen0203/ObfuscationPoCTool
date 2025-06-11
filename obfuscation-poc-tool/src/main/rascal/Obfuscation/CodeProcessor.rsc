@@ -8,12 +8,14 @@ import Location;
 import Obfuscation::GeneratedFormatter;
 
 public str readFileToString(loc path) {
-    println("parseFile: <parseFiles([path])>");
-    println("comments:<parseForComments(path)>");
+    // println("parseFile: <parseFiles([path])>");
+    // println("comments:<parseForComments(path)>");
     return readFile(path);
 }
 
 public void writeStringToFile(loc path, str content) {
+    println(path);
+    println(content);
     writeFile(path, content);
 }
 

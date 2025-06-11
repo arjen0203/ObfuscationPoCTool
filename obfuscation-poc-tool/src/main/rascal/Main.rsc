@@ -7,7 +7,7 @@ import Obfuscation::Obfuscator;
 
 void main() {
     loc configPath = |project://obfuscation-poc-tool/TestFiles/TestConfigs/TestFile.yaml|;
-    println("argument: <configPath>");
+    // println("argument: <configPath>");
     Configuration = parseConfigFile(configPath);
     ObfuscateCode(Configuration);
 }

@@ -9,9 +9,9 @@ import Config::Configuration;
  
 public Configuration parseConfigFile(loc filePath) {
     ConcreteConfigFile concreteConfig = parseConfigFileToTree(filePath);
-    println("concreteConfig: <concreteConfig>");
+    // println("concreteConfig: <concreteConfig>");
     Configuration config = ConvertConcreteConfigFileToConfiguration(concreteConfig);
-    println("config: <config>");
+    // println("config: <config>");
     return config;
 }
 

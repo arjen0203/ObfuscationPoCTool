@@ -12,11 +12,11 @@ public void ObfuscateCode(Configuration configuration) {
     Declaration ast = convertCodeStringToAST(codeString);
     //println(ast);
 
-    // createASTFormatter();
+    //createASTFormatter();
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
 
     str newCodeString = convertASTtoString(augmentedAST);
-    //println(newCodeString);
+    println(newCodeString);
     writeStringToFile(configuration.outputPath, newCodeString);
 }
 

@@ -15,18 +15,17 @@ str format(typedef()) =
 str format(functionCall(Expression arg_1, list[void] arg_2)) =
 "<format(arg_1)>()";
 
+str format(static()) =
+"static";
+
 str format(translationUnit(list[Declaration] arg_1)) =
 "#include \<stdio.h\>\r
 '#include \<stdlib.h\>\r
 '#include \<string.h\>\r
 '\r
-'#define TEXT \"ABC\"\r
-'\r
-'// Simulate the ConcatenationLibrary.RepeatAndJoin functionality\r
 '<"<for (value v <- arg_1) {><format(v)>\r
 '\r
-'// Function that calculates the amount and repeats the string\r
-'<}>"[..-67]>\r
+'<}>"[..-4]>\r
 '";
 
 str format(char()) =
@@ -102,7 +101,7 @@ str format(name(str arg_1)) =
 "<arg_1>";
 
 str format(declSpecifier(list[Modifier] arg_1, Type arg_2)) =
-"<"<for (value v <- arg_1) {><format(v)><}>"> <format(arg_2)>";
+"<"<for (value v <- arg_1) {><format(v)> <}>"[..-1]> <format(arg_2)>";
 
 str format(functionDeclarator(list[void] arg_1, list[void] arg_2, Name arg_3, list[void] arg_4, list[void] arg_5)) =
 "(<format(arg_3)>o";
@@ -192,6 +191,9 @@ str format(structFinal(list[Modifier] arg_1, Name arg_2, list[void] arg_3, list[
 
 str format(float()) =
 "float";
+
+str format(arrayModifier(list[void] arg_1)) =
+"[]";
 
 str format(\if(Expression arg_1, Statement arg_2, Statement arg_3)) =
 "if (<format(arg_1)>) <format(arg_2)> else <format(arg_3)>";

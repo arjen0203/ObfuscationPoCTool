@@ -20,7 +20,7 @@ data TargetingType
     | targetLinesOfCode(list [linesOfCodeTarget] linesOfCodeTargetList)
     | targetIdentifiers(list [str] identifierList)
     | targetLinesOfCodeWithReplacement(list [linesOfCodeTarget] linesOfCodeTargetList, ReplacementFunction replacementFunction)
-    | targetIdentifiersWithReplacement(list [str] identifierList, ReplacementFunction replacementTarget);
+    | targetIdentifiersWithReplacement(list [str] identifierList, ReplacementFunction replacementFunction);
 
 data ReplacementFunction
     = replaceAll(str replaceValue)

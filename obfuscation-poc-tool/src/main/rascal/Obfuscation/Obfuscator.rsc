@@ -5,26 +5,31 @@ import Config::Configuration;
 import Obfuscation::CodeProcessor;
 import lang::cpp::AST;
 import Obfuscation::ObfuscationTools;
+import List;
+import Obfuscation::Techniques::AbstractingStaticValues;
+import Obfuscation::Techniques::ReplacingStaticValues;
+import Obfuscation::Techniques::AbstractingLibraryCalls;
+import Obfuscation::Techniques::ReplacingLibraryCalls;
+import Obfuscation::Techniques::RemovingLibraryCalls;
 
 public void ObfuscateCode(Configuration configuration) {
     str codeString = readFileToString(configuration.codePath);
-    //println("The code as string: <codeString>");
     Declaration ast = convertCodeStringToAST(codeString);
-    //println(ast);
 
-    //createASTFormatter();
+    createASTFormatter(configuration.codePath);
     println();
     println("ast: <ast>");
+
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
     println();
     println("AugmentedAST: <augmentedAST>");
     str newCodeString = convertASTtoString(augmentedAST);
-    //println(newCodeString);
 
-    writeStringToFile(configuration.outputPath, newCodeString);
+    str augmentedNewCodeString = ApplyPostASTTechniques(newCodeString, configuration);
+    writeStringToFile(configuration.outputPath, augmentedNewCodeString);
 }
 
-public Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
+private Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
     Declaration augmentedAST = ast;
 
     for (tech <- config.techniqueList) {
@@ -44,15 +49,6 @@ public Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
             case abstractingIdentifiers(TargetingType targetingType): {
                 augmentedAST = handleAbstractingIdentifiers(targetingType, augmentedAST);
             }
-            case replacingLibraryCalls(TargetingType targetingType): {
-                augmentedAST = handleReplacingLibraryCalls(targetingType, augmentedAST);
-            }
-            case abstractingLibraryCalls(TargetingType targetingType): {
-                augmentedAST = handleAbstractingLibraryCalls(targetingType, augmentedAST);
-            }
-            case removingLibraryCalls(TargetingType targetingType): {
-                augmentedAST = handleRemovingLibraryCalls(targetingType, augmentedAST);
-            }
             case removingComments(TargetingType targetingType): {
                 augmentedAST = handleRemovingComments(targetingType, augmentedAST);
             }
@@ -67,53 +63,23 @@ public Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
   return augmentedAST;
 }
 
-Declaration handleReplacingStaticValues(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling replacingStaticValues");
-  return ast;
-}
+private str ApplyPostASTTechniques(str code, Configuration config) {
+    str augmentedCode = code;
 
-Declaration handleAbstractingStaticValues(TargetingType targetingType, Declaration ast) {
-  println();
-  println("Handling abstractingStaticValues");
-  Declaration augmentedAST = ast;
-  switch (targetingType) {
-    case targetAll(): {
-        augmentedAST = visit(ast) {
-            case decl: simpleDeclaration(declSpecifier(_, integer()), [declarator(_, _, _)]) => AbstractValueInteger(decl)
-            case decl: simpleDeclaration(declSpecifier(_, char()), [arrayDeclarator(_, _, _, _)]) => AbstractValueString(decl)
-            case decl: simpleDeclaration(declSpecifier(_, char()), [declarator(_, _, _)]) => AbstractValueChar(decl)
-            // TODO: Array's
-            // TODO: additional types, such as float, bool, etc
-        }
-
-    }
-
-    case targetIdentifiers(list[str] identifierList): {
-        println("Targeting identifiers:");
-        for (id <- identifierList) {
-        println(" - Identifier: <id>");
+    for (tech <- config.techniqueList) {
+        switch (tech) {
+            case replacingLibraryCalls(TargetingType targetingType): {
+                augmentedCode = handleReplacingLibraryCalls(targetingType, augmentedCode);
+            }
+            case abstractingLibraryCalls(TargetingType targetingType): {
+                augmentedCode = handleAbstractingLibraryCalls(targetingType, augmentedCode);
+            }
+            case removingLibraryCalls(TargetingType targetingType): {
+                augmentedCode = handleRemovingLibraryCalls(targetingType, augmentedCode);
+            }
         }
     }
-  }
-
-  return augmentedAST;
-}
-
-private Declaration AbstractValueChar(Declaration decl){
-    println("decl: <decl>");
-    return decl;
-}
-
-
-private Declaration AbstractValueInteger(Declaration decl){
-    decl.declarators[0].initializer.initializer.\value = "<NextAbstractInt()>";
-    return decl;
-}
-
-private Declaration AbstractValueString(Declaration decl){
-    println("decl: <decl>");
-    return decl;
+  return augmentedCode;
 }
 
 Declaration handleAbstractingTypesToGeneric(TargetingType targetingType, Declaration ast) {
@@ -131,24 +97,6 @@ Declaration handleReplacingIdentifiers(TargetingType targetingType, Declaration 
 Declaration handleAbstractingIdentifiers(TargetingType targetingType, Declaration ast) {
   // TODO: implement logic
   println("Handling abstractingIdentifiers");
-  return ast;
-}
-
-Declaration handleReplacingLibraryCalls(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling replacingLibraryCalls");
-  return ast;
-}
-
-Declaration handleAbstractingLibraryCalls(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling abstractingLibraryCalls");
-  return ast;
-}
-
-Declaration handleRemovingLibraryCalls(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling removingLibraryCalls");
   return ast;
 }
 

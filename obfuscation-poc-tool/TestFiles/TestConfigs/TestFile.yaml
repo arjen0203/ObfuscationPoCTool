@@ -5,3 +5,13 @@ techniques:
   - abstracting_static_values: {
       targetingType: all
     }
+
+  - abstracting_static_values: {
+      targetingType: identifier,
+      targets: "amount"
+    }
+
+  - abstracting_static_values: {
+      targetingType: identifier,
+      targets: ["secondAmount", "single", "printText"]
+    }

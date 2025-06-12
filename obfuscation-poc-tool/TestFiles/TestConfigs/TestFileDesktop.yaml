@@ -2,6 +2,24 @@ code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-too
 output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\SmallOutput.c
 
 techniques:
-  - abstracting_static_values: {
+  - replacing_static_values: {
+        targetingType: identifier,
+        targets: ["amount", "secondAmount"],
+        replacementValue: "{*} -> {33}"
+    }
+
+  - replacing_static_values: {
+        targetingType: identifier,
+        targets: ["printText", "secondText"],
+        replacementValue: "{test} -> {newTest}"
+    }
+
+  - replacing_static_values: {
+        targetingType: identifier,
+        targets: "single",
+        replacementValue: "{*} -> {z}"
+    }
+
+  - removing_library_calls: {
       targetingType: all
     }

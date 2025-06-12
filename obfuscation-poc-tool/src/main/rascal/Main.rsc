@@ -2,7 +2,6 @@ module Main
 
 import IO;
 import Config::ConfigurationReader;
-import Config::Configuration;
 import Obfuscation::Obfuscator;
 
 void main() {

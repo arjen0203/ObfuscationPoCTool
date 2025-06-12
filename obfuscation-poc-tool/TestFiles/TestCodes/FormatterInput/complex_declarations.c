@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 enum Color { RED, GREEN, BLUE };
 
 void say_hello() {

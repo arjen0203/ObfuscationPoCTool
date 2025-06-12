@@ -21,18 +21,23 @@ str format(static()) =
 str format(translationUnit(list[Declaration] arg_1)) =
 "#include \<stdio.h\>\r
 '#include \<stdlib.h\>\r
-'#include \<string.h\>\r
 '\r
-'<"<for (value v <- arg_1) {><format(v)>\r
+'// More testing comments over here\r
+'<"<for (value v <- arg_1) {><format(v)><}>">\r
 '\r
-'<}>"[..-4]>\r
-'";
+'#include \<string.h\>";
 
 str format(char()) =
 "char";
 
 str format(assign(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> = <format(arg_2)>";
+
+str format(structFinal(list[Modifier] arg_1, Name arg_2, list[void] arg_3, list[Declaration] arg_4)) =
+"<"<for (value v <- arg_1) {><format(v)><}>"><format(arg_2)>typedef struct {\r
+'    <"<for (value v <- arg_4) {><format(v)>\r
+'    <}>"[..-6]>\r
+'}";
 
 str format(idExpression(Name arg_1)) =
 "<format(arg_1)>";
@@ -179,15 +184,6 @@ str format(compoundStatement(list[Statement] arg_1)) =
 
 str format(functionDefinition(DeclSpecifier arg_1, Declarator arg_2, list[void] arg_3, Statement arg_4)) =
 "<format(arg_1)> <format(arg_2)> <format(arg_4)>";
-
-str format(conditional(Expression arg_1, Expression arg_2, Expression arg_3)) =
-"<format(arg_1)><format(arg_2)><format(arg_3)>";
-
-str format(structFinal(list[Modifier] arg_1, Name arg_2, list[void] arg_3, list[Declaration] arg_4)) =
-"<"<for (value v <- arg_1) {><format(v)><}>"><format(arg_2)>typedef struct {\r
-'    <"<for (value v <- arg_4) {><format(v)>\r
-'    <}>"[..-6]>\r
-'}";
 
 str format(float()) =
 "float";

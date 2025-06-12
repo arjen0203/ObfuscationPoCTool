@@ -14,8 +14,8 @@ public str readFileToString(loc path) {
 }
 
 public void writeStringToFile(loc path, str content) {
-    println(path);
-    println(content);
+    //println(path);
+    //println(content);
     writeFile(path, content);
 }
 

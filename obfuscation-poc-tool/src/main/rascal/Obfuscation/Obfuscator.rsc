@@ -13,10 +13,14 @@ public void ObfuscateCode(Configuration configuration) {
     //println(ast);
 
     //createASTFormatter();
+    println();
+    println("ast: <ast>");
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
-
+    println();
+    println("AugmentedAST: <augmentedAST>");
     str newCodeString = convertASTtoString(augmentedAST);
-    println(newCodeString);
+    //println(newCodeString);
+
     writeStringToFile(configuration.outputPath, newCodeString);
 }
 
@@ -26,41 +30,40 @@ public Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
     for (tech <- config.techniqueList) {
         switch (tech) {
             case replacingStaticValues(TargetingType targetingType): {
-                Declaration augmentedAST = handleReplacingStaticValues(targetingType, ast);
+                augmentedAST = handleReplacingStaticValues(targetingType, augmentedAST);
             }
             case abstractingStaticValues(TargetingType targetingType): {
-                Declaration augmentedAST = handleAbstractingStaticValues(targetingType, ast);
+                augmentedAST = handleAbstractingStaticValues(targetingType, augmentedAST);
             }
             case abstractingTypesToGeneric(TargetingType targetingType): {
-                Declaration augmentedAST = handleAbstractingTypesToGeneric(targetingType, ast);
+                augmentedAST = handleAbstractingTypesToGeneric(targetingType, augmentedAST);
             }
             case replacingIdentifiers(TargetingType targetingType): {
-                Declaration augmentedAST = handleReplacingIdentifiers(targetingType, ast);
+                augmentedAST = handleReplacingIdentifiers(targetingType, augmentedAST);
             }
             case abstractingIdentifiers(TargetingType targetingType): {
-                Declaration augmentedAST = handleAbstractingIdentifiers(targetingType, ast);
+                augmentedAST = handleAbstractingIdentifiers(targetingType, augmentedAST);
             }
             case replacingLibraryCalls(TargetingType targetingType): {
-                Declaration augmentedAST = handleReplacingLibraryCalls(targetingType, ast);
+                augmentedAST = handleReplacingLibraryCalls(targetingType, augmentedAST);
             }
             case abstractingLibraryCalls(TargetingType targetingType): {
-                Declaration augmentedAST = handleAbstractingLibraryCalls(targetingType, ast);
+                augmentedAST = handleAbstractingLibraryCalls(targetingType, augmentedAST);
             }
             case removingLibraryCalls(TargetingType targetingType): {
-                Declaration augmentedAST = handleRemovingLibraryCalls(targetingType, ast);
+                augmentedAST = handleRemovingLibraryCalls(targetingType, augmentedAST);
             }
             case removingComments(TargetingType targetingType): {
-                Declaration augmentedAST = handleRemovingComments(targetingType, ast);
+                augmentedAST = handleRemovingComments(targetingType, augmentedAST);
             }
             case replacingLinesOfCode(TargetingType targetingType): {
-                Declaration augmentedAST = handleReplacingLinesOfCode(targetingType, ast);
+                augmentedAST = handleReplacingLinesOfCode(targetingType, augmentedAST);
             }
             case removingLinesOfCode(TargetingType targetingType): {
-                Declaration augmentedAST = handleRemovingLinesOfCode(targetingType, ast);
+                augmentedAST = handleRemovingLinesOfCode(targetingType, augmentedAST);
             }
         }
     }
-
   return augmentedAST;
 }
 
@@ -71,13 +74,19 @@ Declaration handleReplacingStaticValues(TargetingType targetingType, Declaration
 }
 
 Declaration handleAbstractingStaticValues(TargetingType targetingType, Declaration ast) {
+  println();
   println("Handling abstractingStaticValues");
   Declaration augmentedAST = ast;
   switch (targetingType) {
     case targetAll(): {
         augmentedAST = visit(ast) {
             case decl: simpleDeclaration(declSpecifier(_, integer()), [declarator(_, _, _)]) => AbstractValueInteger(decl)
+            case decl: simpleDeclaration(declSpecifier(_, char()), [arrayDeclarator(_, _, _, _)]) => AbstractValueString(decl)
+            case decl: simpleDeclaration(declSpecifier(_, char()), [declarator(_, _, _)]) => AbstractValueChar(decl)
+            // TODO: Array's
+            // TODO: additional types, such as float, bool, etc
         }
+
     }
 
     case targetIdentifiers(list[str] identifierList): {
@@ -87,12 +96,24 @@ Declaration handleAbstractingStaticValues(TargetingType targetingType, Declarati
         }
     }
   }
+
   return augmentedAST;
 }
 
+private Declaration AbstractValueChar(Declaration decl){
+    println("decl: <decl>");
+    return decl;
+}
+
+
 private Declaration AbstractValueInteger(Declaration decl){
-    println(decl);
-    return reference();
+    decl.declarators[0].initializer.initializer.\value = "<NextAbstractInt()>";
+    return decl;
+}
+
+private Declaration AbstractValueString(Declaration decl){
+    println("decl: <decl>");
+    return decl;
 }
 
 Declaration handleAbstractingTypesToGeneric(TargetingType targetingType, Declaration ast) {

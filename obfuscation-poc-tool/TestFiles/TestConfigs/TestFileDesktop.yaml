@@ -1,0 +1,7 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Small.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\SmallOutput.c
+
+techniques:
+  - abstracting_static_values: {
+      targetingType: all
+    }

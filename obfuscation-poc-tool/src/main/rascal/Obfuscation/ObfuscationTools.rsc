@@ -9,6 +9,8 @@ list[str] alphabet = ["a", "b", "c", "d", "e", "f", "g",
                       "v", "w", "x", "y", "z"];
 
 int abstractNameCounter = 0;
+int abstractIntCounter = 0;
+int abstractCharCounter = 0;
 
 public str NextAbstractName(bool capitalizeFirst) {
   str name = GenerateName(abstractNameCounter, capitalizeFirst);
@@ -34,3 +36,16 @@ private str GenerateName(int count, bool capitalize) {
   return name;
 }
 
+public int NextAbstractInt() {
+  abstractInt = abstractIntCounter;
+  abstractIntCounter = abstractIntCounter + 1;
+  return abstractInt;
+}
+
+public str NextAbstractChar() {
+  int rem = abstractCharCounter % 26;
+  bool isCapitalized = (abstractCharCounter % 52) > 26;
+  abstractCharCounter = abstractCharCounter + 1;
+  if (!isCapitalized) return alphabet[rem];
+  else return toUpperCase(alphabet[rem]);
+}

@@ -16,9 +16,15 @@ int abstractCharCounter = 0;
 public str NextAbstractString(bool capitalizeFirst) {
   str name = GenerateString(abstractNameCounter, capitalizeFirst);
   abstractNameCounter += 1;
-  return name;
+  return "\"<name>\"";
 } 
 
+public str NextAbstractLibrary() {
+  str name = GenerateString(abstractNameCounter, false);
+  abstractNameCounter += 1;
+  println("hit");
+  return "<name>.h";
+} 
 
 private str GenerateString(int count, bool capitalize) {
   str name = "";
@@ -34,7 +40,7 @@ private str GenerateString(int count, bool capitalize) {
     name = toUpperCase(substring(name, 0, 1)) + substring(name, 1);
   }
 
-  return "\"<name>\"";
+  return name;
 }
 
 public int NextAbstractInt() {

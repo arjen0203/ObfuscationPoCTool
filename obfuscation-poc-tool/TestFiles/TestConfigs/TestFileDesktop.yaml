@@ -20,6 +20,11 @@ techniques:
         replacementValue: "{*} -> {z}"
     }
 
-  - removing_library_calls: {
-      targetingType: all
+  - abstracting_library_calls: {
+        targetingType: identifier,
+        targets: ["stdlib.h", "stdio.h"]
+    }
+
+  - abstracting_library_calls: {
+        targetingType: all
     }

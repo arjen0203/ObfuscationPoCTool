@@ -52,7 +52,7 @@ syntax TargetList =
     | Target "," TargetList
 ;
 
-// TODO: have distinction between range and identifeier, without space
+// TODO: have distinction between range and identifier, without space
 syntax Target =
     | Int codeLine
     | "\"" Int low "-" Int high "\""
@@ -66,7 +66,7 @@ syntax ReplacementValueInput = "\"{" CodeString toReplace "}" "-\>" "{" CodeStri
 
 lexical String = [a-zA-Z0-9]+;
 lexical CodeString = [a-zA-Z0-9\ \-\\:.,;+*^=\<\>\[\](){}\t\n\r]+;
-lexical Identifier = [a-zA-Z0-9_\-]+;
+lexical Identifier = [a-zA-Z0-9_\-.]+;
 lexical Path = [a-zA-Z0-9/._\\:\-]+;
 lexical Int = [0-9]+;
 

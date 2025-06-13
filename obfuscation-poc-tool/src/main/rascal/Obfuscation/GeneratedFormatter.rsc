@@ -19,8 +19,10 @@ str format(static()) =
 "static";
 
 str format(translationUnit(list[Declaration] arg_1)) =
-"#include \<stdio.h\>\r
-'#include \<stdlib.h\>\r
+"#include \<stdio.h\> //put comment behind here\r
+'#include \"stdlib.h\"\r
+'#include \<math.h\>\r
+'#include \"math.h\"\r
 '\r
 '// More testing comments over here\r
 '<"<for (value v <- arg_1) {><format(v)><}>">\r

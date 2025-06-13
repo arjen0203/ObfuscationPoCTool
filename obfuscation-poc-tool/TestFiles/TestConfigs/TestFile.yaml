@@ -15,3 +15,33 @@ techniques:
       targetingType: identifier,
       targets: ["secondAmount", "single", "printText"]
     }
+
+  - removing_library_calls: {
+      targetingType: all
+    }
+
+  - removing_library_calls: {
+        targetingType: identifier,
+        targets: ["stdlib.h", "stdio.h"]
+    }
+
+  - replacing_library_calls: {
+        targetingType: identifier,
+        targets: "math.h",
+        replacementValue: "{math} -> {calculus}"
+    }
+
+  - replacing_library_calls: {
+        targetingType: identifier,
+        targets: ["stdlib.h", "stdio.h"],
+        replacementValue: "{*} -> {library}"
+    }
+
+  - abstracting_library_calls: {
+        targetingType: identifier,
+        targets: ["stdlib.h", "stdio.h"]
+    }
+
+  - abstracting_library_calls: {
+        targetingType: all
+    }

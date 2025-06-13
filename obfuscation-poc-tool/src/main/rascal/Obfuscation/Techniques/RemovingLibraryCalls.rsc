@@ -42,7 +42,7 @@ private str removeLibraryLines(str code) {
           line = substring(line, 0, libraryCallStart) + substring(line, arrowEnd + 1, size(line));
         }
       }
-      result += line;
+      result += line + "\n";
     }
     return result;
 }

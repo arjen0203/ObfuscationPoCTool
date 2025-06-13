@@ -11,6 +11,9 @@ import Obfuscation::Techniques::ReplacingStaticValues;
 import Obfuscation::Techniques::AbstractingLibraryCalls;
 import Obfuscation::Techniques::ReplacingLibraryCalls;
 import Obfuscation::Techniques::RemovingLibraryCalls;
+import Obfuscation::Techniques::RemovingComments;
+import Obfuscation::Techniques::ReplacingIdentifiers;
+import Obfuscation::Techniques::AbstractingIdentifiers;
 
 public void ObfuscateCode(Configuration configuration) {
     str codeString = readFileToString(configuration.codePath);
@@ -49,9 +52,6 @@ private Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
             case abstractingIdentifiers(TargetingType targetingType): {
                 augmentedAST = handleAbstractingIdentifiers(targetingType, augmentedAST);
             }
-            case removingComments(TargetingType targetingType): {
-                augmentedAST = handleRemovingComments(targetingType, augmentedAST);
-            }
             case replacingLinesOfCode(TargetingType targetingType): {
                 augmentedAST = handleReplacingLinesOfCode(targetingType, augmentedAST);
             }
@@ -77,6 +77,9 @@ private str ApplyPostASTTechniques(str code, Configuration config) {
             case removingLibraryCalls(TargetingType targetingType): {
                 augmentedCode = handleRemovingLibraryCalls(targetingType, augmentedCode);
             }
+            case removingComments(TargetingType targetingType): {
+                augmentedCode = handleRemovingComments(targetingType, augmentedCode);
+            }
         }
     }
   return augmentedCode;
@@ -85,24 +88,6 @@ private str ApplyPostASTTechniques(str code, Configuration config) {
 Declaration handleAbstractingTypesToGeneric(TargetingType targetingType, Declaration ast) {
   // TODO: implement logic
   println("Handling abstractingTypesToGeneric");
-  return ast;
-}
-
-Declaration handleReplacingIdentifiers(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling replacingIdentifiers");
-  return ast;
-}
-
-Declaration handleAbstractingIdentifiers(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling abstractingIdentifiers");
-  return ast;
-}
-
-Declaration handleRemovingComments(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling removingComments");
   return ast;
 }
 

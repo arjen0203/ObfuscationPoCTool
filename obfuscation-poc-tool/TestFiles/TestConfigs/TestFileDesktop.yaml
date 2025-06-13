@@ -28,3 +28,18 @@ techniques:
   - abstracting_library_calls: {
         targetingType: all
     }
+
+  - removing_comments: {
+        targetingType: all
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: "amount",
+        replacementValue: "{*} -> {newAmount}"
+    }
+
+  - abstracting_identifiers: {
+        targetingType: identifier,
+        targets: "secondAmount"
+    }

@@ -19,10 +19,15 @@ public str NextAbstractString(bool capitalizeFirst) {
   return "\"<name>\"";
 } 
 
+public str NextAbstractIdentifier() {
+  str name = GenerateString(abstractNameCounter, true);
+  abstractNameCounter += 1;
+  return name;
+} 
+
 public str NextAbstractLibrary() {
   str name = GenerateString(abstractNameCounter, false);
   abstractNameCounter += 1;
-  println("hit");
   return "<name>.h";
 } 
 

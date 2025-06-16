@@ -28,8 +28,10 @@ public Declaration handleReplacingIdentifiers(TargetingType targetingType, Decla
 // TODO: fix mapping of generated names to old names and vice versa
 private Declaration ReplaceNameDeclerationIfTarget(Declaration decl, ReplacementFunction replacementFunction, list[str] targets){
   str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
   if (indexOf(targets, currentIdentifier) != -1) {
     str replacementValue = replaceValueUsingFunction(currentIdentifier, replacementFunction);
+    AddIdentifierMapping(currentIdentifier, replacementValue);
     decl.declarators[0].name.\value = replacementValue;
   }
   return decl;

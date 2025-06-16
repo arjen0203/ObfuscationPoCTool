@@ -26,7 +26,9 @@ public Declaration handleReplacingStaticValues(TargetingType targetingType, Decl
 }
 
 private Declaration ReplaceValueCharIfTarget(Declaration decl, ReplacementFunction replacementFunction, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) {
+  str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  if (indexOf(targets, currentIdentifier) != -1) {
     str currentValue = decl.declarators[0].initializer.initializer.\value;
     str replacementValue = replaceValueUsingFunction(substring(currentValue, 1, 2), replacementFunction);
     decl.declarators[0].initializer.initializer.\value = "\'<replacementValue>\'";
@@ -35,7 +37,9 @@ private Declaration ReplaceValueCharIfTarget(Declaration decl, ReplacementFuncti
 }
 
 private Declaration ReplaceValueIntegerIfTarget(Declaration decl, ReplacementFunction replacementFunction, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) {
+  str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  if (indexOf(targets, currentIdentifier) != -1) {
     str currentValue = decl.declarators[0].initializer.initializer.\value;
     str replacementValue = replaceValueUsingFunction(currentValue, replacementFunction);
     decl.declarators[0].initializer.initializer.\value = "<replacementValue>";
@@ -44,7 +48,9 @@ private Declaration ReplaceValueIntegerIfTarget(Declaration decl, ReplacementFun
 }
 
 private Declaration ReplaceValueStringIfTarget(Declaration decl, ReplacementFunction replacementFunction, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) {
+  str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  if (indexOf(targets, currentIdentifier) != -1) {
     str currentValue = decl.declarators[0].initializer.initializer.\value;
     str replacementValue = replaceValueUsingFunction(substring(currentValue, 1, size(currentValue) - 1), replacementFunction);
     decl.declarators[0].initializer.initializer.\value = "\"<replacementValue>\"";

@@ -35,17 +35,23 @@ public Declaration handleAbstractingStaticValues(TargetingType targetingType, De
 }
 
 private Declaration AbstractValueCharIfTarget(Declaration decl, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractChar()>";
+  str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  if (indexOf(targets, currentIdentifier) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractChar()>";
   return decl;
 }
 
 private Declaration AbstractValueIntegerIfTarget(Declaration decl, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractInt()>";
+  str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  if (indexOf(targets, currentIdentifier) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractInt()>";
   return decl;
 }
 
 private Declaration AbstractValueStringIfTarget(Declaration decl, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractString()>";
+  str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  if (indexOf(targets, currentIdentifier) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractString()>";
   return decl;
 }
 

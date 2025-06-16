@@ -30,8 +30,10 @@ public Declaration handleAbstractingIdentifiers(TargetingType targetingType, Dec
 // TODO: fix mapping of generated names to old names and vice versa
 private Declaration AbstractNameDeclerationIfTarget(Declaration decl, list[str] targets){
   str currentIdentifier = decl.declarators[0].name.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
   if (indexOf(targets, currentIdentifier) != -1) {
     str replacementValue = NextAbstractIdentifier(false);
+    AddIdentifierMapping(currentIdentifier, replacementValue);
     decl.declarators[0].name.\value = replacementValue;
   }
   return decl;

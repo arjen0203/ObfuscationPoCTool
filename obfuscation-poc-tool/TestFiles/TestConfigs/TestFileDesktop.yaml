@@ -2,6 +2,17 @@ code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-too
 output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\SmallOutput.c
 
 techniques:
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: "amount",
+        replacementValue: "{*} -> {newAmount}"
+    }
+
+  - abstracting_identifiers: {
+        targetingType: identifier,
+        targets: "secondAmount"
+    }
+
   - replacing_static_values: {
         targetingType: identifier,
         targets: ["amount", "secondAmount"],
@@ -31,15 +42,4 @@ techniques:
 
   - removing_comments: {
         targetingType: all
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: "amount",
-        replacementValue: "{*} -> {newAmount}"
-    }
-
-  - abstracting_identifiers: {
-        targetingType: identifier,
-        targets: "secondAmount"
     }

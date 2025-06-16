@@ -29,12 +29,12 @@ public void ResetCounters() {
 }
 
 public void AddIdentifierMapping(str original, str replacement){
-  changedIdentifierMapping[original] = replacement;
+  changedIdentifierMapping[replacement] = original;
 }
 
-public bool HasIdentifierAndIsMatch(str currentIdentifier, str expectedIdentifier) {
-  if (currentIdentifier in changedIdentifierMapping) return changedIdentifierMapping[currentIdentifier] == expectedIdentifier;
-  return false;
+public str IfHasIdentifierMappingReplace(str currentIdentifier) {
+  if (currentIdentifier in changedIdentifierMapping) return changedIdentifierMapping[currentIdentifier];
+  return currentIdentifier;
 }
 
 public void SetExcludedGeneratedNames(list[str] names){

@@ -45,7 +45,7 @@ private Declaration AbstractValueIntegerIfTarget(Declaration decl, list[str] tar
 }
 
 private Declaration AbstractValueStringIfTarget(Declaration decl, list[str] targets){
-  if (indexOf(targets, decl.declarators[0].name.\value) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractString(false)>";
+  if (indexOf(targets, decl.declarators[0].name.\value) != -1) decl.declarators[0].initializer.initializer.\value = "<NextAbstractString()>";
   return decl;
 }
 
@@ -60,6 +60,6 @@ private Declaration AbstractValueInteger(Declaration decl){
 }
 
 private Declaration AbstractValueString(Declaration decl){
-  decl.declarators[0].initializer.initializer.\value = "<NextAbstractString(false)>";
+  decl.declarators[0].initializer.initializer.\value = "<NextAbstractString()>";
   return decl;
 }

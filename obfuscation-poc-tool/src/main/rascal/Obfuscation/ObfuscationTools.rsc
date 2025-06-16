@@ -3,6 +3,8 @@ module Obfuscation::ObfuscationTools
 import String;
 import IO;
 import Config::Configuration;
+import List;
+import util::Maybe;
 
 list[str] alphabet = ["a", "b", "c", "d", "e", "f", "g",
                       "h", "i", "j", "k", "l", "m", "n",
@@ -13,14 +15,40 @@ int abstractNameCounter = 0;
 int abstractIntCounter = 0;
 int abstractCharCounter = 0;
 
-public str NextAbstractString(bool capitalizeFirst) {
-  str name = GenerateString(abstractNameCounter, capitalizeFirst);
+map[str, str] changedIdentifierMapping = ();
+
+// To ensure we don't on accident generate a abstract name that already exist we keep track of the original names existing inside the code
+// And those defined in the config file to make sure we don't get any unwanted changes
+list[str] excludedGeneratedNames = [];
+
+// Reset the counters such that testing will be consistent
+public void ResetCounters() {
+  abstractNameCounter = 0;
+  abstractIntCounter = 0;
+  abstractCharCounter = 0;
+}
+
+public void AddIdentifierMapping(str original, str replacement){
+  changedIdentifierMapping[original] = replacement;
+}
+
+public bool HasIdentifierAndIsMatch(str currentIdentifier, str expectedIdentifier) {
+  if (currentIdentifier in changedIdentifierMapping) return changedIdentifierMapping[currentIdentifier] == expectedIdentifier;
+  return false;
+}
+
+public void SetExcludedGeneratedNames(list[str] names){
+  excludedGeneratedNames = names;
+}
+
+public str NextAbstractString() {
+  str name = GenerateString(abstractNameCounter, false);
   abstractNameCounter += 1;
   return "\"<name>\"";
 } 
 
-public str NextAbstractIdentifier() {
-  str name = GenerateString(abstractNameCounter, true);
+public str NextAbstractIdentifier(bool capitalizeFirst) {
+  str name = GenerateString(abstractNameCounter, capitalizeFirst);
   abstractNameCounter += 1;
   return name;
 } 
@@ -44,7 +72,10 @@ private str GenerateString(int count, bool capitalize) {
   if (capitalize && size(name) > 0) {
     name = toUpperCase(substring(name, 0, 1)) + substring(name, 1);
   }
-
+  if (indexOf(excludedGeneratedNames, name) != -1) {
+     abstractNameCounter += 1;
+     return GenerateString(abstractNameCounter, capitalize);
+  }
   return name;
 }
 

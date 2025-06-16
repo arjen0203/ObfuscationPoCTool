@@ -31,7 +31,7 @@ public Declaration handleAbstractingIdentifiers(TargetingType targetingType, Dec
 private Declaration AbstractNameDeclerationIfTarget(Declaration decl, list[str] targets){
   str currentIdentifier = decl.declarators[0].name.\value;
   if (indexOf(targets, currentIdentifier) != -1) {
-    str replacementValue = NextAbstractIdentifier();
+    str replacementValue = NextAbstractIdentifier(false);
     decl.declarators[0].name.\value = replacementValue;
   }
   return decl;

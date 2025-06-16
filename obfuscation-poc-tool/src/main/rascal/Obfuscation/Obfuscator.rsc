@@ -6,6 +6,7 @@ import Obfuscation::CodeProcessor;
 import lang::cpp::AST;
 import Obfuscation::ObfuscationTools;
 import List;
+import String;
 import Obfuscation::Techniques::AbstractingStaticValues;
 import Obfuscation::Techniques::ReplacingStaticValues;
 import Obfuscation::Techniques::AbstractingLibraryCalls;
@@ -22,7 +23,7 @@ public void ObfuscateCode(Configuration configuration) {
     createASTFormatter(configuration.codePath);
     println();
     println("ast: <ast>");
-
+    PrepareObfuscation(ast, configuration);
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
     println();
     println("AugmentedAST: <augmentedAST>");
@@ -30,6 +31,34 @@ public void ObfuscateCode(Configuration configuration) {
 
     str augmentedNewCodeString = ApplyPostASTTechniques(newCodeString, configuration);
     writeStringToFile(configuration.outputPath, augmentedNewCodeString);
+}
+
+private void PrepareObfuscation(Declaration ast, Configuration config) {
+    ResetCounters();
+    ExtractExistingNames(ast, config);
+}
+
+private void ExtractExistingNames(Declaration ast, Configuration config) {
+    list[str] allExistingNames = [];
+
+    visit(ast) {
+        case Name n: allExistingNames = allExistingNames + n.\value;
+    }
+
+    visit(config) {
+      case replaceAll(replaceValue): allExistingNames = allExistingNames + replaceValue;
+      case targetIdentifiersWithReplacement(ids, replaceWith(targetValue, replaceValue)): allExistingNames = allExistingNames + generateReplaceWithNames(ids, replaceValue, targetValue);
+    }
+
+    SetExcludedGeneratedNames(allExistingNames);
+}
+
+private list[str] generateReplaceWithNames(list[str] identifiers, str replaceWith, str toReplace) {
+    list[str] names = [];
+    for (id <- identifiers) {
+        names = names + replaceAll(toReplace, id, replaceWith);
+    }
+    return names;
 }
 
 private Declaration ApplyASTTechniques(Declaration ast, Configuration config) {

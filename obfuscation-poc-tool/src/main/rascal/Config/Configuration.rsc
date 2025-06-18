@@ -18,15 +18,15 @@ data Technique
 	
 data TargetingType
     = targetAll()
-    | targetLinesOfCode(list [linesOfCodeTarget] linesOfCodeTargetList)
+    | targetLinesOfCode(list [LinesOfCodeTarget] linesOfCodeTargetList)
     | targetIdentifiers(list [str] identifierList)
-    | targetLinesOfCodeWithReplacement(list [linesOfCodeTarget] linesOfCodeTargetList, ReplacementFunction replacementFunction)
+    | targetLinesOfCodeWithReplacement(list [LinesOfCodeTarget] linesOfCodeTargetList, ReplacementFunction replacementFunction)
     | targetIdentifiersWithReplacement(list [str] identifierList, ReplacementFunction replacementFunction);
 
 data ReplacementFunction
     = replaceAll(str replaceValue)
     | replaceWith(str targetValue, str replaceValue);
 
-data linesOfCodeTarget
+data LinesOfCodeTarget
     = singleLine(int codeLine)
     | range(int startLine, int endLine);

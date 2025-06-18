@@ -207,7 +207,7 @@ private str ConvertIdentifierTarget(Target target) {
   };
 }
 
-private list[linesOfCodeTarget] ConvertTargetCodeLineList(Targets targets) {
+private list[LinesOfCodeTarget] ConvertTargetCodeLineList(Targets targets) {
     switch (targets.targetValue) {
         case (TargetValue) `<Target target>`: {
             return [ ConvertCodeLineTarget(target) ];
@@ -220,7 +220,7 @@ private list[linesOfCodeTarget] ConvertTargetCodeLineList(Targets targets) {
     }
 }
 
-list[linesOfCodeTarget] FlattenCodeLineTargetList(TargetList targetList, list[linesOfCodeTarget] currentList) {
+list[LinesOfCodeTarget] FlattenCodeLineTargetList(TargetList targetList, list[LinesOfCodeTarget] currentList) {
   switch (targetList) {
     case (TargetList) `<Target target>`: {
         return concat([[ConvertCodeLineTarget(target)], currentList]);
@@ -233,7 +233,7 @@ list[linesOfCodeTarget] FlattenCodeLineTargetList(TargetList targetList, list[li
   };
 }
 
-private linesOfCodeTarget ConvertCodeLineTarget(Target target) {
+private LinesOfCodeTarget ConvertCodeLineTarget(Target target) {
   switch (target) {
     case (Target) `<Int codeLine>`:
       return singleLine(toInt("<codeLine>"));

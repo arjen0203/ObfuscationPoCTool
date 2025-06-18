@@ -5,7 +5,7 @@
 
 
 void  a() {
-        something();return amount;
+        void secondAmount = 33;void computationInt = amount + secondAmount;somethingBetter();return amount;
     }
 
 void  b() {

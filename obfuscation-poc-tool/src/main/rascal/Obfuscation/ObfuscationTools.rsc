@@ -118,17 +118,40 @@ list[Technique] sortTechniques(list[Technique] techniques) {
 
 private int techniqueRank(Technique t) {
   switch (t) {
-    case abstractingStaticValues(_):        return 0;
-    case replacingStaticValues(_):          return 0;
-    case abstractingTypesToGeneric(_):      return 1;
-    case replacingIdentifiers(_):           return 0;
-    case abstractingIdentifiers(_):         return 0;
-    case replacingLibraryCalls(_):          return 0;
-    case abstractingLibraryCalls(_):        return 0;
-    case removingLibraryCalls(_):           return 0;
-    case removingComments(_):               return 0;
     case replacingLinesOfCode(_):           return 0;
-    case removingLinesOfCode(_):            return 0;
-    case breakingRelations(_):              return 0;
+    case removingLinesOfCode(_):            return 1;
+    case abstractingStaticValues(_):        return 2;
+    case replacingStaticValues(_):          return 2;
+    case replacingIdentifiers(_):           return 2;
+    case abstractingIdentifiers(_):         return 2;
+    case removingComments(_):               return 2;
+    case abstractingTypesToGeneric(_):      return 3;
+    case breakingRelations(_):              return 2;
+    case replacingLibraryCalls(_):          return 4;
+    case abstractingLibraryCalls(_):        return 4;
+    case removingLibraryCalls(_):           return 4;
   }
+}
+
+public set[int] linesOfCodeTargetToLinesSet(list[LinesOfCodeTarget] linesOfCodeTargetList) {
+  set[int] linesOfCode = {};
+    for (target <- linesOfCodeTargetList) {
+        switch (target) {
+            case singleLine(int codeLine): {
+              linesOfCode = linesOfCode + {codeLine};
+            }
+            case range(int startLine, int endLine): {
+              linesOfCode = linesOfCode + generateIntList(startLine, endLine);
+            }
+        }
+    }
+    return linesOfCode;
+}
+
+public set[int] generateIntList(int startInt, int endInt) {
+  set[int] result = {};
+  for (int i <- [startInt .. endInt]) {
+    result += {i};
+  }
+  return result;
 }

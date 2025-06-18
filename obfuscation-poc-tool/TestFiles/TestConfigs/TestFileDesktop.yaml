@@ -40,3 +40,20 @@ techniques:
   - breaking_relations: {
       targetingType: all
     }
+
+  - removing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: ["1", "9 - 11"]
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 20,
+      replacementValue: "{*} -> {somethingBetter();}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 16,
+      replacementValue: "{secondAmount * amount} -> {amount + secondAmount}"
+    }

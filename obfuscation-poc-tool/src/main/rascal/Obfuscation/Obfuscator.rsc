@@ -17,17 +17,22 @@ import Obfuscation::Techniques::ReplacingIdentifiers;
 import Obfuscation::Techniques::AbstractingIdentifiers;
 import Obfuscation::Techniques::AbstractingTypesToGeneric;
 import Obfuscation::Techniques::BreakingRelations;
+import Obfuscation::Techniques::RemovingLinesOfCode;
+import Obfuscation::Techniques::ReplacingLinesOfCode;
 
 public void ObfuscateCode(Configuration configuration) {
+    configuration.techniqueList = sortTechniques(configuration.techniqueList);
     str codeString = readFileToString(configuration.codePath);
+
+    codeString = ApplyPreASTTechniques(codeString, configuration);
+    println(codeString);
+
     Declaration ast = convertCodeStringToAST(codeString);
+    PrepareObfuscation(ast, configuration);
 
     createASTFormatter(configuration.codePath);
     println();
     println("ast: <ast>");
-
-    PrepareObfuscation(ast, configuration);
-    configuration.techniqueList = sortTechniques(configuration.techniqueList);
 
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
     println();
@@ -66,6 +71,23 @@ private list[str] generateReplaceWithNames(list[str] identifiers, str replaceWit
     return names;
 }
 
+private str ApplyPreASTTechniques(str code, Configuration config) {
+    str augmentedCode = code;
+
+    for (tech <- config.techniqueList) {
+        switch (tech) {
+            case removingLinesOfCode(TargetingType targetingType): {
+                augmentedCode = handleRemovingLinesOfCode(targetingType, augmentedCode);
+            }
+            case replacingLinesOfCode(TargetingType targetingType): {
+                augmentedCode = handleReplacingLinesOfCode(targetingType, augmentedCode);
+                println();
+            }
+        }
+    }
+  return augmentedCode;
+}
+
 private Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
     Declaration augmentedAST = ast;
 
@@ -85,12 +107,6 @@ private Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
             }
             case abstractingIdentifiers(TargetingType targetingType): {
                 augmentedAST = handleAbstractingIdentifiers(targetingType, augmentedAST);
-            }
-            case replacingLinesOfCode(TargetingType targetingType): {
-                augmentedAST = handleReplacingLinesOfCode(targetingType, augmentedAST);
-            }
-            case removingLinesOfCode(TargetingType targetingType): {
-                augmentedAST = handleRemovingLinesOfCode(targetingType, augmentedAST);
             }
             case breakingRelations(TargetingType targetingType): {
                 augmentedAST = handleBreakingRelations(targetingType, augmentedAST);
@@ -120,16 +136,4 @@ private str ApplyPostASTTechniques(str code, Configuration config) {
         }
     }
   return augmentedCode;
-}
-
-Declaration handleReplacingLinesOfCode(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling replacingLinesOfCode");
-  return ast;
-}
-
-Declaration handleRemovingLinesOfCode(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling removingLinesOfCode");
-  return ast;
 }

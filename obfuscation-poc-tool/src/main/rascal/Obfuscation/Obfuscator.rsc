@@ -15,6 +15,8 @@ import Obfuscation::Techniques::RemovingLibraryCalls;
 import Obfuscation::Techniques::RemovingComments;
 import Obfuscation::Techniques::ReplacingIdentifiers;
 import Obfuscation::Techniques::AbstractingIdentifiers;
+import Obfuscation::Techniques::AbstractingTypesToGeneric;
+import Obfuscation::Techniques::BreakingRelations;
 
 public void ObfuscateCode(Configuration configuration) {
     str codeString = readFileToString(configuration.codePath);
@@ -23,7 +25,10 @@ public void ObfuscateCode(Configuration configuration) {
     createASTFormatter(configuration.codePath);
     println();
     println("ast: <ast>");
+
     PrepareObfuscation(ast, configuration);
+    configuration.techniqueList = sortTechniques(configuration.techniqueList);
+
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
     println();
     println("AugmentedAST: <augmentedAST>");
@@ -87,6 +92,9 @@ private Declaration ApplyASTTechniques(Declaration ast, Configuration config) {
             case removingLinesOfCode(TargetingType targetingType): {
                 augmentedAST = handleRemovingLinesOfCode(targetingType, augmentedAST);
             }
+            case breakingRelations(TargetingType targetingType): {
+                augmentedAST = handleBreakingRelations(targetingType, augmentedAST);
+            }
         }
     }
   return augmentedAST;
@@ -112,12 +120,6 @@ private str ApplyPostASTTechniques(str code, Configuration config) {
         }
     }
   return augmentedCode;
-}
-
-Declaration handleAbstractingTypesToGeneric(TargetingType targetingType, Declaration ast) {
-  // TODO: implement logic
-  println("Handling abstractingTypesToGeneric");
-  return ast;
 }
 
 Declaration handleReplacingLinesOfCode(TargetingType targetingType, Declaration ast) {

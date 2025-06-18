@@ -13,11 +13,7 @@ public Declaration handleReplacingIdentifiers(TargetingType targetingType, Decla
   switch (targetingType) {
     case targetIdentifiersWithReplacement(list[str] identifierList, ReplacementFunction replacementFunction): {
       augmentedAST = visit(ast) {
-        case decl: simpleDeclaration(declSpecifier(_, integer()), [declarator(_, _, _)]) => ReplaceNameDeclerationIfTarget(decl, replacementFunction, identifierList)
-        case decl: simpleDeclaration(declSpecifier(_, char()), [arrayDeclarator(_, _, _, _)]) => ReplaceNameDeclerationIfTarget(decl, replacementFunction, identifierList)
-        case decl: simpleDeclaration(declSpecifier(_, char()), [declarator(_, _, _)]) => ReplaceNameDeclerationIfTarget(decl, replacementFunction, identifierList)
-        // TODO: Array's
-        // TODO: additional types, such as float, bool, etc
+        case Name identifierName => ReplaceNameIfTarget(identifierName, replacementFunction, identifierList)
       }
     }
   }
@@ -25,14 +21,13 @@ public Declaration handleReplacingIdentifiers(TargetingType targetingType, Decla
   return augmentedAST;
 }
 
-// TODO: fix mapping of generated names to old names and vice versa
-private Declaration ReplaceNameDeclerationIfTarget(Declaration decl, ReplacementFunction replacementFunction, list[str] targets){
-  str currentIdentifier = decl.declarators[0].name.\value;
+private Name ReplaceNameIfTarget(Name identifierName, ReplacementFunction replacementFunction, list[str] targets){
+  str currentIdentifier = identifierName.\value;
   currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
   if (indexOf(targets, currentIdentifier) != -1) {
     str replacementValue = replaceValueUsingFunction(currentIdentifier, replacementFunction);
     AddIdentifierMapping(currentIdentifier, replacementValue);
-    decl.declarators[0].name.\value = replacementValue;
+    identifierName.\value = replacementValue;
   }
-  return decl;
+  return identifierName;
 }

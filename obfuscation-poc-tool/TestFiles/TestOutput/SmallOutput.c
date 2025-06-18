@@ -1,11 +1,16 @@
-#include <d.h> 
-#include "e.h"
-#include <f.h>
+#include <f.h> 
 #include "g.h"
+#include <h.h>
+#include "i.h"
 
 
-void  main() {
-        int newAmount = 33;int a = 33;char printText[] = "newTestText";char secondText[] = "newTestImportantText";char single = 'z';
+void  a() {
+        something();return amount;
     }
 
-#include <h.h>
+void  b() {
+        c();
+    }
+
+#include <j.h>
+

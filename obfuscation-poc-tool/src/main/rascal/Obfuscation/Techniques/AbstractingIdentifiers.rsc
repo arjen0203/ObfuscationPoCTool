@@ -8,33 +8,57 @@ import Obfuscation::ObfuscationTools;
 import List;
 import String;
 
+map[str, str] abstractedNames = ();
+
 public Declaration handleAbstractingIdentifiers(TargetingType targetingType, Declaration ast) {
   Declaration augmentedAST = ast;
+  abstractedNames = ();
+
   switch (targetingType) {
     case targetIdentifiers(list[str] identifierList): {
       augmentedAST = visit(ast) {
-        case decl: simpleDeclaration(declSpecifier(_, integer()), [declarator(_, _, _)]) => AbstractNameDeclerationIfTarget(decl, identifierList)
-        case decl: simpleDeclaration(declSpecifier(_, char()), [arrayDeclarator(_, _, _, _)]) => AbstractNameDeclerationIfTarget(decl, identifierList)
-        case decl: simpleDeclaration(declSpecifier(_, char()), [declarator(_, _, _)]) => AbstractNameDeclerationIfTarget(decl, identifierList)
-        // TODO: Array's
-        // TODO: additional types, such as float, bool, etc
+        case Name identifierName => AbstractNameIfTarget(identifierName, identifierList)
       }
-      // TODO: add targetAll
+    }
+    case targetAll(): {
+      augmentedAST = visit(ast) {
+        case Name identifierName => AbstractName(identifierName)
+      }
     }
   }
 
   return augmentedAST;
 }
 
+private Name AbstractName(Name identifierName){
+  str currentIdentifier = identifierName.\value;
+  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+  str replacementValue = "";
+  if (currentIdentifier in abstractedNames) {
+    replacementValue = abstractedNames[currentIdentifier];
+  } else {
+    replacementValue = NextAbstractIdentifier(false);
+    abstractedNames[currentIdentifier] = replacementValue;
+    AddIdentifierMapping(currentIdentifier, replacementValue);
+  }
+  identifierName.\value = replacementValue;
+  
+  return identifierName;
+}
 
-// TODO: fix mapping of generated names to old names and vice versa
-private Declaration AbstractNameDeclerationIfTarget(Declaration decl, list[str] targets){
-  str currentIdentifier = decl.declarators[0].name.\value;
+private Name AbstractNameIfTarget(Name identifierName, list[str] targets){
+  str currentIdentifier = identifierName.\value;
   currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
   if (indexOf(targets, currentIdentifier) != -1) {
-    str replacementValue = NextAbstractIdentifier(false);
-    AddIdentifierMapping(currentIdentifier, replacementValue);
-    decl.declarators[0].name.\value = replacementValue;
+    str replacementValue = "";
+    if (currentIdentifier in abstractedNames) {
+      replacementValue = abstractedNames[currentIdentifier];
+    } else {
+      replacementValue = NextAbstractIdentifier(false);
+      abstractedNames[currentIdentifier] = replacementValue;
+      AddIdentifierMapping(currentIdentifier, replacementValue);
+    }
+    identifierName.\value = replacementValue;
   }
-  return decl;
+  return identifierName;
 }

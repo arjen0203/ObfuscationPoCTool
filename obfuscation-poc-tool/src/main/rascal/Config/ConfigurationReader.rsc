@@ -46,6 +46,11 @@ private list[Technique] ConvertTechniques(list[TechniqueItem] techniqueList) {
                     TargetingType fieldType = ConvertFields(fields);
                     techniques = techniques + abstractingTypesToGeneric(fieldType);
                 }
+            case (TechniqueType) `breaking_relations : <TechniqueFields fields>`:
+                {
+                    TargetingType fieldType = ConvertFields(fields);
+                    techniques = techniques + breakingRelations(fieldType);
+                }
             case (TechniqueType) `replacing_identifiers : <TechniqueFields fields>`:
                 {
                     TargetingType fieldType = ConvertFields(fields);

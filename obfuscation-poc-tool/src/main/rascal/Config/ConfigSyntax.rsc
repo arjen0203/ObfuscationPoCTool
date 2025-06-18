@@ -18,6 +18,7 @@ syntax TechniqueType =
     | replacingStaticValues: "replacing_static_values" ":" TechniqueFields
     | abstractingStaticValues: "abstracting_static_values" ":" TechniqueFields
     | abstractingTypesToGeneric: "abstracting_types_to_generic" ":" TechniqueFields
+    | breakingRelations: "breaking_relations" ":" TechniqueFields
     | replacingIdentifiers: "replacing_identifiers" ":" TechniqueFields
     | abstractingIdentifiers: "abstracting_identifiers" ":" TechniqueFields
     | replacingLibraryCalls: "replacing_library_calls" ":" TechniqueFields

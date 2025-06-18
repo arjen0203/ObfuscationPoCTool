@@ -25,9 +25,13 @@ str format(translationUnit(list[Declaration] arg_1)) =
 '#include \"math.h\"\r
 '\r
 '// More testing comments over here\r
-'<"<for (value v <- arg_1) {><format(v)><}>">\r
+'<"<for (value v <- arg_1) {><format(v)>\r
 '\r
-'#include \<string.h\>";
+'<}>"[..-4]>\r
+'\r
+'#include \<string.h\>\r
+'\r
+'";
 
 str format(char()) =
 "char";
@@ -136,6 +140,9 @@ str format(\return(Expression arg_1)) =
 
 str format(enumerator(Name arg_1)) =
 "<format(arg_1)>";
+
+str format(modAuto()) =
+"auto";
 
 str format(arrayDeclarator(list[void] arg_1, Name arg_2, list[Expression] arg_3, Expression arg_4)) =
 "<format(arg_2)><"<for (value v <- arg_3) {><format(v)><}>"> <format(arg_4)>";

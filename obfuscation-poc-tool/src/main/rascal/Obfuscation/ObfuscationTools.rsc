@@ -104,3 +104,31 @@ public str replaceValueUsingFunction(str toReplace, ReplacementFunction replacem
   }
   throw "did not find replacmentFunction match";
 }
+
+list[Technique] sortTechniques(list[Technique] techniques) {
+  list[tuple[int idx, Technique t]] indexed = [<i, t> | i <- index(techniques), t <- [techniques[i]]];
+
+  indexed = sort(indexed, bool(a, b) {
+    int ra = techniqueRank(a[1]);
+    int rb = techniqueRank(b[1]);
+    return ra == rb ? a[0] < b[0] : ra < rb;
+  });
+  return [t | <_, t> <- indexed];
+}
+
+private int techniqueRank(Technique t) {
+  switch (t) {
+    case abstractingStaticValues(_):        return 0;
+    case replacingStaticValues(_):          return 0;
+    case abstractingTypesToGeneric(_):      return 1;
+    case replacingIdentifiers(_):           return 0;
+    case abstractingIdentifiers(_):         return 0;
+    case replacingLibraryCalls(_):          return 0;
+    case abstractingLibraryCalls(_):        return 0;
+    case removingLibraryCalls(_):           return 0;
+    case removingComments(_):               return 0;
+    case replacingLinesOfCode(_):           return 0;
+    case removingLinesOfCode(_):            return 0;
+    case breakingRelations(_):              return 0;
+  }
+}

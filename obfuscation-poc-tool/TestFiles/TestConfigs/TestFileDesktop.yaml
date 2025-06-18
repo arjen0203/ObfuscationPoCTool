@@ -2,15 +2,8 @@ code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-too
 output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\SmallOutput.c
 
 techniques:
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: "amount",
-        replacementValue: "{*} -> {newAmount}"
-    }
-
-  - abstracting_identifiers: {
-        targetingType: identifier,
-        targets: "secondAmount"
+  - abstracting_types_to_generic: {
+      targetingType: all
     }
 
   - replacing_static_values: {
@@ -42,4 +35,8 @@ techniques:
 
   - removing_comments: {
         targetingType: all
+    }
+
+  - breaking_relations: {
+      targetingType: all
     }

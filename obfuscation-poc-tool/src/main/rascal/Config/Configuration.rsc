@@ -6,6 +6,7 @@ data Technique
 	= replacingStaticValues(TargetingType targetingType)
     | abstractingStaticValues(TargetingType targetingType)
     | abstractingTypesToGeneric(TargetingType targetingType)
+    | breakingRelations(TargetingType targetingType)
     | replacingIdentifiers(TargetingType targetingType)
     | abstractingIdentifiers(TargetingType targetingType)
     | replacingLibraryCalls(TargetingType targetingType)

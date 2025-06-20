@@ -21,7 +21,6 @@ public str handleReplacingLinesOfCode(TargetingType targetingType, str code) {
 
 private str replaceLines(str code, ReplacementFunction replacementFunction, list[LinesOfCodeTarget] linesOfCodeTargetList) {
   set[int] targetLines = linesOfCodeTargetToLinesSet(linesOfCodeTargetList);
-  println(targetLines);
   str result = "";
   list[str] lines = split("\n", code);
     int lineCounter = 1;

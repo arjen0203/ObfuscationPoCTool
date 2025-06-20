@@ -19,33 +19,37 @@ import Obfuscation::Techniques::AbstractingTypesToGeneric;
 import Obfuscation::Techniques::BreakingRelations;
 import Obfuscation::Techniques::RemovingLinesOfCode;
 import Obfuscation::Techniques::ReplacingLinesOfCode;
+import util::Maybe;
 
-public void ObfuscateCode(Configuration configuration) {
+// Apply all the techniques and use the formatter to generate it back into code
+public void ObfuscateCode(Configuration configuration, Maybe[str] isTest) {
     configuration.techniqueList = sortTechniques(configuration.techniqueList);
     str codeString = readFileToString(configuration.codePath);
-
     codeString = ApplyPreASTTechniques(codeString, configuration);
     println(codeString);
 
     Declaration ast = convertCodeStringToAST(codeString);
-    PrepareObfuscation(ast, configuration);
-
-    createASTFormatter(configuration.codePath);
     println();
     println("ast: <ast>");
+    ExtractExistingNames(ast, configuration);
 
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
     println();
     println("AugmentedAST: <augmentedAST>");
-    str newCodeString = convertASTtoString(augmentedAST);
+    str newCodeString = convertASTtoString(augmentedAST, isTest);
 
     str augmentedNewCodeString = ApplyPostASTTechniques(newCodeString, configuration);
     writeStringToFile(configuration.outputPath, augmentedNewCodeString);
 }
 
-private void PrepareObfuscation(Declaration ast, Configuration config) {
-    ResetCounters();
-    ExtractExistingNames(ast, config);
+// Apply inital techniques to then generate the formatter
+public void PreProcessObfuscation(Configuration configuration, Maybe[str] isTest) {
+    configuration.techniqueList = sortTechniques(configuration.techniqueList);
+    str codeString = readFileToString(configuration.codePath);
+    codeString = ApplyPreASTTechniques(codeString, configuration);
+    println(codeString);
+
+    createASTFormatter(configuration.codePath, isTest);
 }
 
 private void ExtractExistingNames(Declaration ast, Configuration config) {

@@ -85,7 +85,6 @@ private str ApplyPreASTTechniques(str code, Configuration config) {
             }
             case replacingLinesOfCode(TargetingType targetingType): {
                 augmentedCode = handleReplacingLinesOfCode(targetingType, augmentedCode);
-                println();
             }
         }
     }

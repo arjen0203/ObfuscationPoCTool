@@ -9,6 +9,7 @@ import Obfuscation::GeneratedFormatter;
 import String;
 import List;
 import util::Maybe;
+import Tests::TestFormatters::TestFormatter;
 
 public str readFileToString(loc path) {
     // println("parseFile: <parseFiles([path])>");
@@ -28,25 +29,41 @@ public Declaration convertCodeStringToAST(str codeString) {
 }
 
 public str convertASTtoString(Declaration ast, Maybe[str] isTest) {
-    if (isTest == nothing()) return format(ast);
+    switch (isTest) {
+        case nothing(): return format(ast);
+        case just(testName): return formatTest(ast, testName);
+    }
+    return format(ast);
 }
 
 public void createASTFormatter(loc inputFile, Maybe[str] isTest) {
+    loc formatterLocation;
+    str moduleName;
+    switch (isTest) {
+        case nothing(): {
+            formatterLocation = |project://obfuscation-poc-tool/src/main/rascal/obfuscation/GeneratedFormatter.rsc|;
+            moduleName = "Obfuscation::GeneratedFormatter";
+        }
+        case just(testName): {
+            formatterLocation = |project://obfuscation-poc-tool/src/main/rascal/Tests/TestFormatters| + "<testName>Formatter.rsc";
+            moduleName = "Tests::TestFormatters::<testName>Formatter";
+        }
+    }
+    println(formatterLocation);
+    
     str prettyPrinter = filesToPrettyPrinter(find(|project://obfuscation-poc-tool/TestFiles/TestCodes/FormatterInput|, "c") + {inputFile}, #Declaration, parseC);
     prettyPrinter = replaceAll(prettyPrinter, "format(if", "format(\\if");
     prettyPrinter = replaceAll(prettyPrinter, "format(void(", "format(\\void(");
     prettyPrinter = replaceAll(prettyPrinter, "format(for(", "format(\\for(");
     prettyPrinter = replaceAll(prettyPrinter, "format(return(", "format(\\return(");
 
-    if (isTest == nothing()){
-        str prettyPrinterWithImport = "module Obfuscation::GeneratedFormatter
-        '
-        'import lang::cpp::AST;
-        '
-        '<prettyPrinter>
-        '";
+    str prettyPrinterWithImport = "module <moduleName>
+    '
+    'import lang::cpp::AST;
+    '
+    '<prettyPrinter>
+    '";
 
-        writeFile(|project://obfuscation-poc-tool/src/main/rascal/obfuscation/GeneratedFormatter.rsc|,
-        prettyPrinterWithImport);
-    }
+    writeFile(formatterLocation,
+    prettyPrinterWithImport);
 }

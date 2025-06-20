@@ -1,0 +1,8 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Automated\AmountAndRepeat.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Automated\AbstractingIdentifiersTest.c
+
+techniques:
+  - abstracting_identifiers: {
+        targetingType: identifier,
+        targets: ["CalculateAmountAndRepeat", "TEXT", "amount", "startValue", "calculatedAmount"]
+    }

@@ -4,6 +4,7 @@ import IO;
 import Config::ConfigurationReader;
 import Obfuscation::Obfuscator;
 import util::Maybe;
+import Tests::AllTests;
 
 
 void main() {
@@ -16,4 +17,8 @@ void preProcess() {
     loc configPath = |project://obfuscation-poc-tool/TestFiles/TestConfigs/Manual/TestFileDesktop.yaml|;
     Configuration = parseConfigFile(configPath);
     PreProcessObfuscation(Configuration, nothing());
+}
+
+void tests() {
+    runTests();
 }

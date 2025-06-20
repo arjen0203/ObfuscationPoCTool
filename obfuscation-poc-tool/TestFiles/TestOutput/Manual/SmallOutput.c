@@ -1,16 +1,16 @@
-#include <cl.h> 
-#include "cm.h"
-#include <cn.h>
-#include "co.h"
+#include <f.h> 
+#include "g.h"
+#include <h.h>
+#include "i.h"
 
 
-void  cg() {
+void  a() {
         void secondAmount = 33;void computationInt = amount + secondAmount;somethingBetter();return amount;
     }
 
-void  ch() {
-        ci();
+void  b() {
+        c();
     }
 
-#include <cp.h>
+#include <j.h>
 

@@ -9,7 +9,7 @@ import Obfuscation::GeneratedFormatter;
 import String;
 import List;
 import util::Maybe;
-import Tests::TestFormatters::TestFormatter;
+import Tests::TestFormatter;
 
 public str readFileToString(loc path) {
     // println("parseFile: <parseFiles([path])>");
@@ -49,7 +49,7 @@ public void createASTFormatter(loc inputFile, Maybe[str] isTest) {
             moduleName = "Tests::TestFormatters::<testName>Formatter";
         }
     }
-    println(formatterLocation);
+    //println(formatterLocation);
     
     str prettyPrinter = filesToPrettyPrinter(find(|project://obfuscation-poc-tool/TestFiles/TestCodes/FormatterInput|, "c") + {inputFile}, #Declaration, parseC);
     prettyPrinter = replaceAll(prettyPrinter, "format(if", "format(\\if");

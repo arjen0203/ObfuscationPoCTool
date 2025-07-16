@@ -1,4 +1,4 @@
-module Obfuscation::GeneratedFormatter
+module Tests::TestFormatters::AbstractingStaticValuesTestFormatter
 
 import lang::cpp::AST;
 

@@ -1,0 +1,33 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Automated\AmountAndRepeat.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Automated\ReplacingIdentifiersTest.c
+
+techniques:
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["TEXT"],
+        replacementValue: "{*} -> {PATTERN}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["amount"],
+        replacementValue: "{*} -> {positiveNumber}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["CalculateAmountAndRepeat"],
+        replacementValue: "{*} -> {ConstructString}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["calculatedAmount"],
+        replacementValue: "{edAmount} -> {ion}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["startValue"],
+        replacementValue: "{startV} -> {v}"
+    }

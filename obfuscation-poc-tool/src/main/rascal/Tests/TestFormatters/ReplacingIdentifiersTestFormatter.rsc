@@ -1,4 +1,4 @@
-module Tests::TestFormatters::TestAbstractingIdentifiersFormatter
+module Tests::TestFormatters::ReplacingIdentifiersTestFormatter
 
 import lang::cpp::AST;
 
@@ -19,7 +19,8 @@ str format(static()) =
 "static";
 
 str format(translationUnit(list[Declaration] arg_1)) =
-"#include \<stdio.h\>\r
+"// Copyright example header\r
+'#include \<stdio.h\>\r
 '#include \<string.h\>\r
 '\r
 '<"<for (value v <- arg_1) {><format(v)>\r

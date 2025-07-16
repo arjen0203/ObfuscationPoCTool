@@ -1,3 +1,4 @@
+// Copyright example header
 #include <stdio.h>
 #include <string.h>
 

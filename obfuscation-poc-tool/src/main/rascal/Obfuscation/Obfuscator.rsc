@@ -23,19 +23,20 @@ import util::Maybe;
 
 // Apply all the techniques and use the formatter to generate it back into code
 public void ObfuscateCode(Configuration configuration, Maybe[str] isTest) {
+    ResetCounters();
     configuration.techniqueList = sortTechniques(configuration.techniqueList);
     str codeString = readFileToString(configuration.codePath);
     codeString = ApplyPreASTTechniques(codeString, configuration);
-    println(codeString);
+    //println(codeString);
 
     Declaration ast = convertCodeStringToAST(codeString);
-    println();
-    println("ast: <ast>");
+    //println();
+    //println("ast: <ast>");
     ExtractExistingNames(ast, configuration);
 
     Declaration augmentedAST = ApplyASTTechniques(ast, configuration);
-    println();
-    println("AugmentedAST: <augmentedAST>");
+    //println();
+    //println("AugmentedAST: <augmentedAST>");
     str newCodeString = convertASTtoString(augmentedAST, isTest);
 
     str augmentedNewCodeString = ApplyPostASTTechniques(newCodeString, configuration);
@@ -44,10 +45,11 @@ public void ObfuscateCode(Configuration configuration, Maybe[str] isTest) {
 
 // Apply inital techniques to then generate the formatter
 public void PreProcessObfuscation(Configuration configuration, Maybe[str] isTest) {
+    ResetCounters();
     configuration.techniqueList = sortTechniques(configuration.techniqueList);
     str codeString = readFileToString(configuration.codePath);
     codeString = ApplyPreASTTechniques(codeString, configuration);
-    println(codeString);
+    //println(codeString);
 
     createASTFormatter(configuration.codePath, isTest);
 }

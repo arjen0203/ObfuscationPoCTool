@@ -17,6 +17,9 @@ import Tests::TestFormattersInterfaces::BreakingRelationsTestFormatterInterface;
 import Tests::TestFormattersInterfaces::ReplacingLibraryCallsTestFormatterInterface;
 import Tests::TestFormattersInterfaces::AbstractingLibraryCallsTestFormatterInterface;
 import Tests::TestFormattersInterfaces::RemovingLibraryCallsTestFormatterInterface;
+import Tests::TestFormattersInterfaces::RemovingCommentsTestFormatterInterface;
+import Tests::TestFormattersInterfaces::ReplacingLinesOfCodeTestFormatterInterface;
+import Tests::TestFormattersInterfaces::RemovingLinesOfCodeTestFormatterInterface;
 
 public str formatTest(Declaration ast, str testName) {
     switch(testName) {
@@ -38,6 +41,12 @@ public str formatTest(Declaration ast, str testName) {
             return formatAbstractingLibraryCallsTest(ast);
         case "RemovingLibraryCallsTest":
             return formatRemovingLibraryCallsTest(ast);
+        case "RemovingCommentsTest":
+            return formatRemovingCommentsTest(ast);
+        case "ReplacingLinesOfCodeTest":
+            return formatReplacingLinesOfCodeTest(ast);
+        case "RemovingLinesOfCodeTest":
+            return formatRemovingLinesOfCodeTest(ast);
         default:
             println("Test not supported: <testName>");
     }

@@ -26,6 +26,9 @@ public void runTests() {
     runTest("ReplacingLibraryCallsTest");
     runTest("AbstractingLibraryCallsTest");
     runTest("RemovingLibraryCallsTest");
+    runTest("RemovingCommentsTest");
+    runTest("ReplacingLinesOfCodeTest");
+    runTest("RemovingLinesOfCodeTest");
 
     println("Ran tests: <ranTests>");
     println("Succeeded tests: <succeededTest>");

@@ -66,7 +66,7 @@ syntax ReplacementValue = "replacementValue" ":" ReplacementValueInput replaceme
 syntax ReplacementValueInput = "\"{" CodeString toReplace "}" "-\>" "{" CodeString replacement "}\"";
 
 lexical String = [a-zA-Z0-9]+;
-lexical CodeString = [a-zA-Z0-9\ \-\\:.,;+*^=\<\>\[\](){}\t\n\r]+;
+lexical CodeString = [a-zA-Z0-9/\ \-\\:.,;+*^=\<\>\[\](){}\t\n\r]+;
 lexical Identifier = [a-zA-Z0-9_\-.]+;
 lexical Path = [a-zA-Z0-9/._\\:\-]+;
 lexical Int = [0-9]+;

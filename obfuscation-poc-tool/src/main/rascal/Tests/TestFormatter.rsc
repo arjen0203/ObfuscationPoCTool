@@ -8,10 +8,15 @@ import Location;
 import String;
 import List;
 import util::Maybe;
-import Tests::TestFormatters::AbstractingIdentifiersTestFormatterInterface;
-import Tests::TestFormatters::ReplacingIdentifiersTestFormatterInterface;
-import Tests::TestFormatters::ReplacingStaticValuesTestFormatterInterface;
-import Tests::TestFormatters::AbstractingStaticValuesTestFormatterInterface;
+import Tests::TestFormattersInterfaces::AbstractingIdentifiersTestFormatterInterface;
+import Tests::TestFormattersInterfaces::ReplacingIdentifiersTestFormatterInterface;
+import Tests::TestFormattersInterfaces::ReplacingStaticValuesTestFormatterInterface;
+import Tests::TestFormattersInterfaces::AbstractingStaticValuesTestFormatterInterface;
+import Tests::TestFormattersInterfaces::AbstractingTypesToGenericTestFormatterInterface;
+import Tests::TestFormattersInterfaces::BreakingRelationsTestFormatterInterface;
+import Tests::TestFormattersInterfaces::ReplacingLibraryCallsTestFormatterInterface;
+import Tests::TestFormattersInterfaces::AbstractingLibraryCallsTestFormatterInterface;
+import Tests::TestFormattersInterfaces::RemovingLibraryCallsTestFormatterInterface;
 
 public str formatTest(Declaration ast, str testName) {
     switch(testName) {
@@ -19,10 +24,20 @@ public str formatTest(Declaration ast, str testName) {
             return formatReplacingStaticValuesTest(ast);
         case "AbstractingStaticValuesTest":
             return formatAbstractingStaticValuesTest(ast);
-        case "AbstractingIdentifiersTest":
-            return formatAbstractingIdentifiersTest(ast);
+        case "AbstractingTypesToGenericTest":
+            return formatAbstractingTypesToGenericTest(ast);
         case "ReplacingIdentifiersTest":
             return formatReplacingIdentifiersTest(ast);
+        case "AbstractingIdentifiersTest":
+            return formatAbstractingIdentifiersTest(ast);
+        case "BreakingRelationsTest":
+            return formatBreakingRelationsTest(ast);
+        case "ReplacingLibraryCallsTest":
+            return formatReplacingLibraryCallsTest(ast);
+        case "AbstractingLibraryCallsTest":
+            return formatAbstractingLibraryCallsTest(ast);
+        case "RemovingLibraryCallsTest":
+            return formatRemovingLibraryCallsTest(ast);
         default:
             println("Test not supported: <testName>");
     }

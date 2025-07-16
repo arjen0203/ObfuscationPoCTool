@@ -1,0 +1,7 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Automated\AmountAndRepeat.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Automated\AbstractingTypesToGenericTest.c
+
+techniques:
+  - abstracting_types_to_generic: {
+      targetingType: all
+    }

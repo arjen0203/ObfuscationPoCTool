@@ -21,6 +21,11 @@ public void runTests() {
     runTest("AbstractingStaticValuesTest");
     runTest("AbstractingIdentifiersTest");
     runTest("ReplacingIdentifiersTest");
+    runTest("AbstractingTypesToGenericTest");
+    runTest("BreakingRelationsTest");
+    runTest("ReplacingLibraryCallsTest");
+    runTest("AbstractingLibraryCallsTest");
+    runTest("RemovingLibraryCallsTest");
 
     println("Ran tests: <ranTests>");
     println("Succeeded tests: <succeededTest>");

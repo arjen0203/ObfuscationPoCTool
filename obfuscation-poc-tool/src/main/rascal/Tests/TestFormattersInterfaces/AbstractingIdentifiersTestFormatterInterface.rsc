@@ -1,4 +1,4 @@
-module Tests::TestFormatters::AbstractingIdentifiersTestFormatterInterface
+module Tests::TestFormattersInterfaces::AbstractingIdentifiersTestFormatterInterface
 
 import lang::cpp::AST;
 import Tests::TestFormatters::AbstractingIdentifiersTestFormatter;

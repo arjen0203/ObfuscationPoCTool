@@ -1,4 +1,4 @@
-module Tests::TestFormatters::ReplacingStaticValuesTestFormatterInterface
+module Tests::TestFormattersInterfaces::ReplacingStaticValuesTestFormatterInterface
 
 import lang::cpp::AST;
 import Tests::TestFormatters::ReplacingStaticValuesTestFormatter;

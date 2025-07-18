@@ -1,9 +1,10 @@
 #include <stdio.h> //put comment behind here
 #include "stdlib.h"
-#include <math.h>
+#include <math.h>   /* testing multine comment */
 #include "math.h"
 
 // More testing comments over here
+/* testing multine comment */
 void main() {
     // test
     int amount = 10;
@@ -25,5 +26,8 @@ int function() {
     main();
 }
 
+/* testing multine comment
+more comment
+comment */
 #include <string.h>
 

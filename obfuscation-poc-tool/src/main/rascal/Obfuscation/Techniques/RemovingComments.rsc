@@ -20,18 +20,39 @@ public str handleRemovingComments(TargetingType targetingType, str code) {
 }
 
 // Not the cleanest solution, since rascal does not support pattern matching for replaceAll
-// Note: Due to the way it's set up it will also remove the \\ comments at the start of a line inside of
+// Note: Due to the way it's set up it will also remove the // comments at the start of a line inside of
 // string decleration. But since this case is not common this can be overlooked for the PoC.
-// TODO: handle multiline
 private str removeComments(str code) {
   str result = "";
+  bool withinMultilineComment = false;
   list[str] lines = split("\n", code);
-    for (str line <- lines) {
+  for (str line <- lines) {
+    if (!withinMultilineComment) {
       int startComment = findFirst(line, "//");
       if (startComment != -1) {
-          line = substring(line, 0, startComment);
+        line = substring(line, 0, startComment);
+      } else {
+        int startMultilineComment = findFirst(line, "/*");
+        if (startMultilineComment != -1) {
+          int endMultilineComment = findFirst(line, "*/");
+          if (endMultilineComment != -1) {
+            line = substring(line, 0, startMultilineComment) + substring(line, endMultilineComment + 2, size(line));
+          } else {
+            line = substring(line, 0, startMultilineComment);
+            withinMultilineComment = true;
+          }
+        }
       }
-      result += line + "\n";
+    } else {
+      int endMultilineComment = findFirst(line, "*/");
+      if (endMultilineComment != -1) {
+        line = substring(line, endMultilineComment + 2, size(line));
+        withinMultilineComment = false;
+      } else {
+        line = "";
+      }
     }
-    return result;
+    result += line + "\n";
+  }
+  return result;
 }

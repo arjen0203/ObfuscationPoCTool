@@ -6,17 +6,18 @@ import Obfuscation::Obfuscator;
 import util::Maybe;
 import Tests::AllTests;
 
-
-void main() {
-    loc configPath = |project://obfuscation-poc-tool/TestFiles/TestConfigs/Automated/AbstractingIdentifiersTest.yaml|;
-    Configuration = parseConfigFile(configPath);
-    ObfuscateCode(Configuration, nothing());
-}
+loc testLoc = |project://obfuscation-poc-tool/TestFiles/TestConfigs/Manual/TestFileDesktop.yaml|;
 
 void preProcess() {
-    loc configPath = |project://obfuscation-poc-tool/TestFiles/TestConfigs/Automated/AbstractingIdentifiersTest.yaml|;
+    loc configPath = testLoc;
     Configuration = parseConfigFile(configPath);
     PreProcessObfuscation(Configuration, nothing());
+}
+
+void process() {
+    loc configPath = testLoc;
+    Configuration = parseConfigFile(configPath);
+    ObfuscateCode(Configuration, nothing());
 }
 
 void tests() {

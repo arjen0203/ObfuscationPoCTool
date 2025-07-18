@@ -19,12 +19,23 @@ str format(static()) =
 "static";
 
 str format(translationUnit(list[Declaration] arg_1)) =
-"// Copyright example header\r
-'#include \<stdio.h\>\r
+"#include \<stdio.h\> //put comment behind here\r
+'#include \"stdlib.h\"\r
+'#include \<math.h\>   /* testing multine comment */\r
+'#include \"math.h\"\r
+'\r
+'// More testing comments over here\r
+'/* testing multine comment */\r
+'<"<for (value v <- arg_1) {><format(v)>\r
+'\r
+'<}>"[..-4]>\r
+'\r
+'/* testing multine comment\r
+'more comment\r
+'comment */\r
 '#include \<string.h\>\r
 '\r
-'<"<for (value v <- arg_1) {><format(v)>\r
-'<}>"[..-2]>";
+'";
 
 str format(char()) =
 "char";

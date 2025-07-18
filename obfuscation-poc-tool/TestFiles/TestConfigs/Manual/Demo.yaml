@@ -1,0 +1,24 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\tic_tac_toe.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\tic_tac_toe.c
+
+techniques:
+  - abstracting_types_to_generic: {
+      targetingType: all
+    }
+
+  - abstracting_library_calls: {
+        targetingType: all
+    }
+
+  - removing_comments: {
+        targetingType: all
+    }
+
+  - abstracting_identifiers: {
+        targetingType: all
+    }
+
+  - removing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: ["49 - 51"]
+    }

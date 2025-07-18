@@ -31,17 +31,19 @@ public Declaration handleAbstractingIdentifiers(TargetingType targetingType, Dec
 }
 
 private Name AbstractName(Name identifierName){
-  str currentIdentifier = identifierName.\value;
-  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
-  str replacementValue = "";
-  if (currentIdentifier in abstractedNames) {
-    replacementValue = abstractedNames[currentIdentifier];
-  } else {
-    replacementValue = NextAbstractIdentifier(false);
-    abstractedNames[currentIdentifier] = replacementValue;
-    AddIdentifierMapping(currentIdentifier, replacementValue);
+  if( identifierName has \value) {
+    str currentIdentifier = identifierName.\value;
+    currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+    str replacementValue = "";
+    if (currentIdentifier in abstractedNames) {
+      replacementValue = abstractedNames[currentIdentifier];
+    } else {
+      replacementValue = NextAbstractIdentifier(false);
+      abstractedNames[currentIdentifier] = replacementValue;
+      AddIdentifierMapping(currentIdentifier, replacementValue);
+    }
+    identifierName.\value = replacementValue;
   }
-  identifierName.\value = replacementValue;
   
   return identifierName;
 }

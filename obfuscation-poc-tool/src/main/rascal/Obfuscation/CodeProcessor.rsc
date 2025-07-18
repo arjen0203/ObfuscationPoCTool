@@ -56,6 +56,11 @@ public void createASTFormatter(loc inputFile, Maybe[str] isTest) {
     prettyPrinter = replaceAll(prettyPrinter, "format(void(", "format(\\void(");
     prettyPrinter = replaceAll(prettyPrinter, "format(for(", "format(\\for(");
     prettyPrinter = replaceAll(prettyPrinter, "format(return(", "format(\\return(");
+    prettyPrinter = replaceAll(prettyPrinter, "format(break(", "format(\\break(");
+    prettyPrinter = replaceAll(prettyPrinter, "format(switch(", "format(\\switch(");
+    prettyPrinter = replaceAll(prettyPrinter, "format(continue(", "format(\\continue(");
+    prettyPrinter = replaceAll(prettyPrinter, "format(case(", "format(\\case(");
+    prettyPrinter = replaceAll(prettyPrinter, "format(while(", "format(\\while(");
 
     str prettyPrinterWithImport = "module <moduleName>
     '

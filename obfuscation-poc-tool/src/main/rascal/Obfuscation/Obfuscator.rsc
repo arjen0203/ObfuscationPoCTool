@@ -58,7 +58,11 @@ private void ExtractExistingNames(Declaration ast, Configuration config) {
     list[str] allExistingNames = [];
 
     visit(ast) {
-        case Name n: allExistingNames = allExistingNames + n.\value;
+        case Name n: {
+            if (n has \value) {
+                allExistingNames = allExistingNames + n.\value;
+            }
+        }
     }
 
     visit(config) {

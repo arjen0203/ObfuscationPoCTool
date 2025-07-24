@@ -56,16 +56,22 @@ private Declaration AbstractValueStringIfTarget(Declaration decl, list[str] targ
 }
 
 private Declaration AbstractValueChar(Declaration decl){
-  decl.declarators[0].initializer.initializer.\value = "<NextAbstractChar()>";
+  if (decl.declarators[0].initializer.initializer has \value) {
+    decl.declarators[0].initializer.initializer.\value = "<NextAbstractChar()>";
+  }
   return decl;
 }
 
 private Declaration AbstractValueInteger(Declaration decl){
-  decl.declarators[0].initializer.initializer.\value = "<NextAbstractInt()>";
+  if (decl.declarators[0].initializer.initializer has \value) {
+    decl.declarators[0].initializer.initializer.\value = "<NextAbstractInt()>";
+  }
   return decl;
 }
 
 private Declaration AbstractValueString(Declaration decl){
-  decl.declarators[0].initializer.initializer.\value = "<NextAbstractString()>";
+  if (decl.declarators[0].initializer.initializer has \value) {
+    decl.declarators[0].initializer.initializer.\value = "<NextAbstractString()>";
+  }
   return decl;
 }

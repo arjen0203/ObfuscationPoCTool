@@ -3,8 +3,8 @@ module Obfuscation::GeneratedFormatter
 import lang::cpp::AST;
 
 @synopsis{Formats abstract syntax trees back to source code.}
-str format(modulo(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)> % <format(arg_2)>";
+str format(declarator(list[void] arg_1, Name arg_2, Expression arg_3)) =
+"<format(arg_2)> <format(arg_3)>";
 
 str format(divide(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> / <format(arg_2)>";
@@ -21,41 +21,25 @@ str format(functionCall(Expression arg_1, list[void] arg_2)) =
 str format(static()) =
 "static";
 
-str format(translationUnit(list[Declaration] arg_1)) =
-"/**
-' * @file tic-tac-toe.c
-' * @author [vivekboss99](github.com/vivekboss99)
-' * @author [Krishna Vedala](https://github.com/kvedala)
-' * @brief [Tic-Tac-Toe game](https://en.wikipedia.org/wiki/Tic-tac-toe)
-' * implementation in C
-' * @details  Tic-Tac-Toe Game, where the user can decide to play with the
-' * computer(single player mode) or with other user(double player mode), the
-' * code as an array named \'game_table\' which is the table and user needs to enter the
-' * position inside the array(from 1-9) where he/she wants to place \'X\' or \'O\' on the
-' * table.
-' */
-'#include \<stdio.h\>
-'#include \<stdlib.h\>
-'#include \<time.h\>
-'#include \<string.h\>
-'
-'// Functions Declarations
-'<"<for (value v <- arg_1) {><format(v)>
-'<}>"[..-1]>";
+str format(star(Expression arg_1)) =
+"*<format(arg_1)>";
 
-str format(\switch(Expression arg_1, Statement arg_2)) =
-"switch (<format(arg_1)>)  // switch case to select between single player mode or
-'                    // double player mode
-'        <format(arg_2)>";
+str format(translationUnit(list[Declaration] arg_1)) =
+"#include \<stdio.h\>
+'#include \<stdlib.h\>
+'
+'/*Displays the array, passed to this method*/
+'<"<for (value v <- arg_1) {><format(v)>
+'
+'/*Swap function to swap two values*/
+'<}>"[..-39]>
+'";
+
+str format(sizeof(Expression arg_1)) =
+"sizeof(<format(arg_1)>)";
 
 str format(assign(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> = <format(arg_2)>";
-
-str format(declarator(list[void] arg_1, Name arg_2, Expression arg_3)) =
-"<format(arg_2)> <format(arg_3)>";
-
-str format(\break()) =
-"break;";
 
 str format(idExpression(Name arg_1)) =
 "<format(arg_1)>";
@@ -75,12 +59,9 @@ str format(equalsInitializer(Expression arg_1)) =
 str format(const()) =
 "const";
 
-str format(greaterEqual(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)> \>= <format(arg_2)>";
-
 str format(\for(Statement arg_1, Expression arg_2, Expression arg_3, Statement arg_4)) =
 "for (<format(arg_1)> <format(arg_2)>; <format(arg_3)>)
-'            <format(arg_4)>";
+'    <format(arg_4)>";
 
 str format(plus(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> + <format(arg_2)>";
@@ -103,9 +84,6 @@ str format(bracketed(Expression arg_1)) =
 str format(arrayModifier(list[void] arg_1, Expression arg_2)) =
 "[<format(arg_2)>]";
 
-str format(\continue()) =
-"continue;";
-
 str format(postfixIncr(Expression arg_1)) =
 "<format(arg_1)>++";
 
@@ -125,7 +103,7 @@ str format(cast(Expression arg_1, Expression arg_2)) =
 "(<format(arg_1)>)<format(arg_2)>";
 
 str format(equals(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)>  == <format(arg_2)>";
+"<format(arg_1)> == <format(arg_2)>";
 
 str format(functionDeclarator(list[void] arg_1, list[void] arg_2, Name arg_3, list[Declaration] arg_4, list[void] arg_5)) =
 "<format(arg_3)>(<"<for (value v <- arg_4) {><format(v)>, <}>"[..-2]>)";
@@ -146,7 +124,8 @@ str format(multiply(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> * <format(arg_2)>";
 
 str format(\if(Expression arg_1, Statement arg_2)) =
-"if ( <format(arg_1)>)<format(arg_2)>";
+"if (<format(arg_1)>)
+'        <format(arg_2)>";
 
 str format(namedTypeSpecifier(list[void] arg_1, Name arg_2)) =
 "<format(arg_2)>";
@@ -160,9 +139,6 @@ str format(minus(Expression arg_1)) =
 str format(\return(Expression arg_1)) =
 "return <format(arg_1)>;";
 
-str format(\case(Expression arg_1)) =
-"case <format(arg_1)>:";
-
 str format(enumerator(Name arg_1)) =
 "<format(arg_1)>";
 
@@ -173,13 +149,10 @@ str format(arrayDeclarator(list[void] arg_1, Name arg_2, list[Expression] arg_3,
 "<format(arg_2)><"<for (value v <- arg_3) {><format(v)><}>"> <format(arg_4)>";
 
 str format(functionCall(Expression arg_1, list[Expression] arg_2)) =
-"<format(arg_1)>( <"<for (value v <- arg_2) {><format(v)><}>">)";
-
-str format(defaultCase()) =
-"default:";
+"<format(arg_1)>(<"<for (value v <- arg_2) {><format(v)>, <}>"[..-2]>)";
 
 str format(typeId(DeclSpecifier arg_1, Declarator arg_2)) =
-"<format(arg_1)><format(arg_2)>";
+"<format(arg_1)> <format(arg_2)>";
 
 str format(amper(Expression arg_1)) =
 "&<format(arg_1)>";
@@ -192,9 +165,6 @@ str format(\void()) =
 
 str format(declarator(list[void] arg_1, Name arg_2)) =
 "<format(arg_2)>";
-
-str format(unsigned()) =
-"unsigned";
 
 str format(integerConstant(str arg_1)) =
 "<arg_1>";
@@ -217,9 +187,6 @@ str format(floatConstant(str arg_1)) =
 str format(expressionStatement(Expression arg_1)) =
 "<format(arg_1)>;";
 
-str format(logicalOr(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)> || <format(arg_2)>";
-
 str format(declarationStatement(Declaration arg_1)) =
 "<format(arg_1)>";
 
@@ -229,28 +196,20 @@ str format(declarator(list[Declaration] arg_1, Name arg_2, Expression arg_3)) =
 str format(stringLiteral(str arg_1)) =
 "<arg_1>";
 
-str format(do(Statement arg_1, Expression arg_2)) =
-"do
-'    <format(arg_1)> while (<format(arg_2)>);";
-
 str format(compoundStatement(list[Statement] arg_1)) =
 "{
+'        // partitioning index is returned by the partition method , partition
+'        // element is at its correct poition
 '
-'    <"<for (value v <- arg_1) {><format(v)>
+'        <"<for (value v <- arg_1) {><format(v)>
 '
-'    <}>"[..-6]>
-'}";
+'        // Sorting elements before and after the partition index
+'        <}>"[..-75]>
+'    }";
 
 str format(functionDefinition(DeclSpecifier arg_1, Declarator arg_2, list[void] arg_3, Statement arg_4)) =
 "<format(arg_1)> <format(arg_2)>
 '<format(arg_4)>";
-
-str format(logicalAnd(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)> &&
-'            <format(arg_2)>";
-
-str format(\while(Expression arg_1, Statement arg_2)) =
-"while (<format(arg_1)>)<format(arg_2)>";
 
 str format(minus(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> - <format(arg_2)>";
@@ -268,13 +227,7 @@ str format(arrayModifier(list[void] arg_1)) =
 "[]";
 
 str format(\if(Expression arg_1, Statement arg_2, Statement arg_3)) =
-"if (<format(arg_1)>)
-'        <format(arg_2)>
-'        else
-'        <format(arg_3)>";
-
-str format(notEquals(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)> != <format(arg_2)>";
+"if (<format(arg_1)>) <format(arg_2)> else <format(arg_3)>";
 
 str format(parameter(DeclSpecifier arg_1, Declarator arg_2)) =
 "<format(arg_1)> <format(arg_2)>";

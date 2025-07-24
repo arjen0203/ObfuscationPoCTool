@@ -1,12 +1,12 @@
 code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\quick_sort.c
-output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\quick_sort.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\quick_sort_high.c
 
 techniques:
   - abstracting_types_to_generic: {
       targetingType: all
     }
 
-  - abstracting_library_calls: {
+  - removing_library_calls: {
         targetingType: all
     }
 
@@ -20,5 +20,13 @@ techniques:
 
   - removing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: ["49 - 51"]
+      targets: ["77", "80", "88", "93"]
+    }
+
+  - breaking_relations: {
+      targetingType: all
+    }
+
+  - abstracting_static_values: {
+      targetingType: all
     }

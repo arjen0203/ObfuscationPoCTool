@@ -22,12 +22,14 @@ public Declaration handleReplacingIdentifiers(TargetingType targetingType, Decla
 }
 
 private Name ReplaceNameIfTarget(Name identifierName, ReplacementFunction replacementFunction, list[str] targets){
-  str currentIdentifier = identifierName.\value;
-  currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
-  if (indexOf(targets, currentIdentifier) != -1) {
-    str replacementValue = replaceValueUsingFunction(currentIdentifier, replacementFunction);
-    AddIdentifierMapping(currentIdentifier, replacementValue);
-    identifierName.\value = replacementValue;
+  if (identifierName has \value) {
+    str currentIdentifier = identifierName.\value;
+    currentIdentifier = IfHasIdentifierMappingReplace(currentIdentifier);
+    if (indexOf(targets, currentIdentifier) != -1) {
+      str replacementValue = replaceValueUsingFunction(currentIdentifier, replacementFunction);
+      AddIdentifierMapping(currentIdentifier, replacementValue);
+      identifierName.\value = replacementValue;
+    }
   }
   return identifierName;
 }

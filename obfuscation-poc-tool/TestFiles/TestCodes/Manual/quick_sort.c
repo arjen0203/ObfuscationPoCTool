@@ -90,7 +90,7 @@ int main()
 
     quickSort(arr, 0, n - 1);
 
-    printf("Sorted array: ");
+    printf("Resulted array: ");
     display(arr, n);  // Sorted array : 3 4 7 8 8 9 10 11
     getchar();
     free(arr);

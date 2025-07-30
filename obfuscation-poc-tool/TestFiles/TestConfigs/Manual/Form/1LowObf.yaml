@@ -1,5 +1,5 @@
-code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\quick_sort.c
-output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\quick_sort_low.c
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\linear_search.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\linear_search_low.c
 
 techniques:
   - replacing_library_calls: {
@@ -26,61 +26,7 @@ techniques:
 
   - replacing_identifiers: {
         targetingType: identifier,
-        targets: ["display"],
-        replacementValue: "{*} -> {show}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["swap"],
-        replacementValue: "{*} -> {switch}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["first"],
-        replacementValue: "{*} -> {f}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["second"],
-        replacementValue: "{*} -> {s}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["partition"],
-        replacementValue: "{*} -> {part}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["pivot"],
-        replacementValue: "{*} -> {point}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["upper"],
-        replacementValue: "{*} -> {up}"
-    }
-    
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["lower"],
-        replacementValue: "{*} -> {low}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["partitionIndex"],
-        replacementValue: "{*} -> {index}"
-    }
-
-  - replacing_identifiers: {
-        targetingType: identifier,
-        targets: ["quickSort"],
+        targets: ["linearsearch"],
         replacementValue: "{*} -> {algorithm}"
     }
 

@@ -139,7 +139,7 @@ int  main()
                 algorithm(arr, 0, n - 1);
         
                 
-                print("Sorted array: ");
+                print("Resulted array: ");
         
                 
                 show(arr, n);

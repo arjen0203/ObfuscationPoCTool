@@ -1,5 +1,5 @@
+#include <x.h>
 #include <y.h>
-#include <z.h>
 
 
 void  a(int b[], int  c)
@@ -118,7 +118,7 @@ int  t()
                 int  d;
         
                 
-                int * b = (int * )v(sizeof(int  ) * c);
+                int * b = (int * )q(sizeof(int  ) * c);
         
                 
                 for (d = 0; d < c; d++)
@@ -145,10 +145,10 @@ int  t()
                 a(b, c);
         
                 
-                w();
+                v();
         
                 
-                x(b);
+                w(b);
         
                 
                 return 0;

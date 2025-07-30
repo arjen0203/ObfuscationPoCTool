@@ -6,7 +6,7 @@ import Obfuscation::Obfuscator;
 import util::Maybe;
 import Tests::AllTests;
 
-loc testLoc = |project://obfuscation-poc-tool/TestFiles/TestConfigs/Manual/Form/1LowObf.yaml|;
+loc testLoc = |project://obfuscation-poc-tool/TestFiles/TestConfigs/Manual/Form/3LowObf.yaml|;
 
 void preProcess() {
     loc configPath = testLoc;

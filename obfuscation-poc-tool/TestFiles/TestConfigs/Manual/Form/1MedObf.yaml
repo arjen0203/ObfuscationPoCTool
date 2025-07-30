@@ -1,5 +1,5 @@
-code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\quick_sort.c
-output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\quick_sort_med.c
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\linear_search.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\linear_search_med.c
 
 techniques:
   - abstracting_library_calls: {
@@ -16,24 +16,30 @@ techniques:
 
   - replacing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: 77,
-      replacementValue: "{Enter size of array:} -> {Size}"
+      targets: 18,
+      replacementValue: "{Enter the size of the array:} -> {Size:}"
     }
 
   - replacing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: 80,
-      replacementValue: "{Enter the elements of the array} -> {Elements}"
+      targets: 22,
+      replacementValue: "{Enter the contents for an array of size} -> {contents:}"
     }
 
   - replacing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: 88,
-      replacementValue: "{Original array:} -> {Array:}"
+      targets: 27,
+      replacementValue: "{Enter the value:} -> {Value:}"
     }
 
   - replacing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: 93,
-      replacementValue: "{Sorted array:} -> {Array:}"
+      targets: 30,
+      replacementValue: "{is in the array} -> {is in}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 32,
+      replacementValue: "{is not in the array} -> {is not in}"
     }

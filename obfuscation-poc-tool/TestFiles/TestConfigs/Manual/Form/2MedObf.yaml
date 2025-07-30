@@ -1,0 +1,39 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\quick_sort.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\quick_sort_med.c
+
+techniques:
+  - abstracting_library_calls: {
+        targetingType: all
+    }
+
+  - removing_comments: {
+        targetingType: all
+    }
+
+  - abstracting_identifiers: {
+        targetingType: all
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 77,
+      replacementValue: "{Enter size of array:} -> {Size}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 80,
+      replacementValue: "{Enter the elements of the array} -> {Elements}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 88,
+      replacementValue: "{Original array:} -> {Array:}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 93,
+      replacementValue: "{Resulted array:} -> {Array:}"
+    }

@@ -1,0 +1,67 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\dijkstra.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\dijkstra_low.c
+
+techniques:
+  - replacing_library_calls: {
+        targetingType: identifier,
+        targets: ["stdio.h"],
+        replacementValue: "{*} -> {standardio.h}"
+    }
+
+  - replacing_library_calls: {
+        targetingType: identifier,
+        targets: ["stdlib.h"],
+        replacementValue: "{*} -> {utility.h}"
+    }
+
+  - removing_comments: {
+        targetingType: all
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["printf"],
+        replacementValue: "{*} -> {print}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["queue_has_something"],
+        replacementValue: "{*} -> {has_something}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["visited"],
+        replacementValue: "{*} -> {vis}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["dijkstra"],
+        replacementValue: "{*} -> {algorithm}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["mat"],
+        replacementValue: "{*} -> {table}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["dequeue"],
+        replacementValue: "{*} -> {extract}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["enqueue"],
+        replacementValue: "{*} -> {insert}"
+    }
+
+  - replacing_identifiers: {
+        targetingType: identifier,
+        targets: ["scanf"],
+        replacementValue: "{*} -> {scan}"
+    }

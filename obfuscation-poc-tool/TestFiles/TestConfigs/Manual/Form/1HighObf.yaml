@@ -1,5 +1,5 @@
-code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\quick_sort.c
-output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\quick_sort_high.c
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\linear_search.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\linear_search_high.c
 
 techniques:
   - abstracting_types_to_generic: {
@@ -20,7 +20,7 @@ techniques:
 
   - removing_lines_of_code: {
       targetingType: linesOfCode,
-      targets: ["77", "80", "88", "93"]
+      targets: ["18", "22", "27"]
     }
 
   - breaking_relations: {
@@ -29,4 +29,16 @@ techniques:
 
   - abstracting_static_values: {
       targetingType: all
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 30,
+      replacementValue: "{*} -> {printf();}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 32,
+      replacementValue: "{*} -> {printf();}"
     }

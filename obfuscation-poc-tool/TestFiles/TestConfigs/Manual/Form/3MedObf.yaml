@@ -1,0 +1,45 @@
+code_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestCodes\Manual\dijkstra.c
+output_path: C:\Users\arjen\Documents\Repos\ObfuscationPoCTool\obfuscation-poc-tool\TestFiles\TestOutput\Manual\dijkstra_med.c
+
+techniques:
+  - abstracting_library_calls: {
+        targetingType: all
+    }
+
+  - removing_comments: {
+        targetingType: all
+    }
+
+  - abstracting_identifiers: {
+        targetingType: all
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 66,
+      replacementValue: "{Enter the number of vertices:} -> {number}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 68,
+      replacementValue: "{Enter the adj matrix:} -> {adj}"
+    }
+
+  - replacing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: 80,
+      replacementValue: "{Node\tDist} -> {Dist}"
+    }
+
+  - replacing_static_values: {
+        targetingType: identifier,
+        targets: "MAX",
+        replacementValue: "{*} -> {10}"
+    }
+
+  - replacing_static_values: {
+        targetingType: identifier,
+        targets: "INF",
+        replacementValue: "{*} -> {99}"
+    }

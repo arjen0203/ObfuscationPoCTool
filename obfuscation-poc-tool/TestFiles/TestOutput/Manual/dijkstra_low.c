@@ -36,13 +36,13 @@ void  algorithm(int  s)
                                                                                 }insert(i);
                                             }while (has_something())
                         {
-                                            int scan = extract();vis[vp++] = scan;for (i = 0; i < V; ++i)
+                                            int u = extract();vis[vp++] = u;for (i = 0; i < V; ++i)
                                                     {
-                                                                        if (table[scan][i])
+                                                                        if (table[u][i])
                                                                                         {
-                                                                                                            if (dist[i] > dist[scan] + table[scan][i])
+                                                                                                            if (dist[i] > dist[u] + table[u][i])
                                                                                                                             {
-                                                                                                                                                dist[i] = dist[scan] + table[scan][i];
+                                                                                                                                                dist[i] = dist[u] + table[u][i];
                                                                                                                                             }
                                                                                                         }
                                                                     }

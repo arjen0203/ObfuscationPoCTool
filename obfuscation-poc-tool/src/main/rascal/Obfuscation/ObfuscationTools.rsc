@@ -124,9 +124,9 @@ private int techniqueRank(Technique t) {
     case replacingStaticValues(_):          return 2;
     case replacingIdentifiers(_):           return 2;
     case abstractingIdentifiers(_):         return 2;
-    case removingComments(_):               return 2;
-    case abstractingTypesToGeneric(_):      return 3;
     case breakingRelations(_):              return 2;
+    case abstractingTypesToGeneric(_):      return 3;
+    case removingComments(_):               return 4;
     case replacingLibraryCalls(_):          return 4;
     case abstractingLibraryCalls(_):        return 4;
     case removingLibraryCalls(_):           return 4;

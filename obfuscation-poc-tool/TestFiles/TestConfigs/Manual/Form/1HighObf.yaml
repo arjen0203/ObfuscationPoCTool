@@ -18,17 +18,17 @@ techniques:
         targetingType: all
     }
 
-  - removing_lines_of_code: {
-      targetingType: linesOfCode,
-      targets: ["18", "22", "27"]
-    }
-
   - breaking_relations: {
       targetingType: all
     }
 
   - abstracting_static_values: {
       targetingType: all
+    }
+
+  - removing_lines_of_code: {
+      targetingType: linesOfCode,
+      targets: ["18", "22", "27"]
     }
 
   - replacing_lines_of_code: {

@@ -6,9 +6,6 @@ import lang::cpp::AST;
 str format(declarator(list[void] arg_1, Name arg_2, Expression arg_3)) =
 "<format(arg_2)> <format(arg_3)>";
 
-str format(prefixDecr(Expression arg_1)) =
-"--<format(arg_1)>";
-
 str format(divide(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> / <format(arg_2)>";
 
@@ -31,8 +28,12 @@ str format(translationUnit(list[Declaration] arg_1)) =
 "#include \<stdio.h\>
 '#include \<stdlib.h\>
 '
+'/*Displays the array, passed to this method*/
 '<"<for (value v <- arg_1) {><format(v)>
-'<}>"[..-1]>";
+'
+'/*Swap function to swap two values*/
+'<}>"[..-39]>
+'";
 
 str format(sizeof(Expression arg_1)) =
 "sizeof(<format(arg_1)>)";
@@ -60,7 +61,7 @@ str format(const()) =
 
 str format(\for(Statement arg_1, Expression arg_2, Expression arg_3, Statement arg_4)) =
 "for (<format(arg_1)> <format(arg_2)>; <format(arg_3)>)
-'        <format(arg_4)>";
+'    <format(arg_4)>";
 
 str format(plus(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> + <format(arg_2)>";
@@ -124,7 +125,7 @@ str format(multiply(Expression arg_1, Expression arg_2)) =
 
 str format(\if(Expression arg_1, Statement arg_2)) =
 "if (<format(arg_1)>)
-'                <format(arg_2)>";
+'        <format(arg_2)>";
 
 str format(namedTypeSpecifier(list[void] arg_1, Name arg_2)) =
 "<format(arg_2)>";
@@ -137,9 +138,6 @@ str format(minus(Expression arg_1)) =
 
 str format(\return(Expression arg_1)) =
 "return <format(arg_1)>;";
-
-str format(arrayDeclarator(list[Declaration] arg_1, Name arg_2, list[Expression] arg_3)) =
-"<"<for (value v <- arg_1) {><format(v)><}>"><format(arg_2)><"<for (value v <- arg_3) {><format(v)><}>">";
 
 str format(enumerator(Name arg_1)) =
 "<format(arg_1)>";
@@ -200,16 +198,18 @@ str format(stringLiteral(str arg_1)) =
 
 str format(compoundStatement(list[Statement] arg_1)) =
 "{
-'                    <"<for (value v <- arg_1) {><format(v)><}>">
-'                }";
+'        // partitioning index is returned by the partition method , partition
+'        // element is at its correct poition
+'
+'        <"<for (value v <- arg_1) {><format(v)>
+'
+'        // Sorting elements before and after the partition index
+'        <}>"[..-75]>
+'    }";
 
 str format(functionDefinition(DeclSpecifier arg_1, Declarator arg_2, list[void] arg_3, Statement arg_4)) =
 "<format(arg_1)> <format(arg_2)>
 '<format(arg_4)>";
-
-str format(\while(Expression arg_1, Statement arg_2)) =
-"while (<format(arg_1)>)
-'    <format(arg_2)>";
 
 str format(minus(Expression arg_1, Expression arg_2)) =
 "<format(arg_1)> - <format(arg_2)>";
@@ -228,9 +228,6 @@ str format(arrayModifier(list[void] arg_1)) =
 
 str format(\if(Expression arg_1, Statement arg_2, Statement arg_3)) =
 "if (<format(arg_1)>) <format(arg_2)> else <format(arg_3)>";
-
-str format(notEquals(Expression arg_1, Expression arg_2)) =
-"<format(arg_1)> != <format(arg_2)>";
 
 str format(parameter(DeclSpecifier arg_1, Declarator arg_2)) =
 "<format(arg_1)> <format(arg_2)>";
